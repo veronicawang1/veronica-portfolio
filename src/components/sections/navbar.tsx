@@ -2,13 +2,10 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatedText, MovingElement } from "../navbar";
 
 export function Navbar() {
-  const router = useRouter();
   const { setTheme, resolvedTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -27,19 +24,10 @@ export function Navbar() {
   };
 
   return (
-    <header className="flex justify-between items-end">
-      <MovingElement
-        change={() => router.push("/")}
-        ariaLabel="Navigate to home"
-      >
-        <Link href={"/"} className="font-bold text-xl tracking-tighter">
-          poopster.
-        </Link>
-      </MovingElement>
-
+    <header className="flex justify-end items-end">
       <nav className="flex items-center gap-2">
         <ul className="flex items-center gap-2 sm:gap-0">
-          {["experience", "projects", "blogs"].map((link, index) => (
+          {["experience", "projects", "art"].map((link, index) => (
             <li key={index}>
               <AnimatedText href={`/#${link}`}>{link}</AnimatedText>
             </li>
