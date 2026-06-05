@@ -43,36 +43,20 @@ export const DATA = {
   },
 
   EXPERIENCE: {
-    "Fumble": {
-      WEBSITE: "https://www.fumble.chat/",
-      POSITION: "Software Developer",
-      LOCATION: "Remote",
-      DURATION: "May, 2025 - Present",
+    "Quantum Computing Research": {
+      WEBSITE: "https://arxiv.org/abs/2412.08626",
+      POSITION: "Research Author",
+      LOCATION: "Poolesville, MD",
+      DURATION: "June 2024 – January 2026",
       DESCRIPTION: [
-        "Learned Next.js, TypeScript, and Tailwind CSS to build a high-performance UI for Fumble.",
-        "Hosted and managed servers on AWS EC2, configured domains, and implemented SSL certificates for secure access.",
-        "Collaborated with cross-functional teams to design and implement scalable solutions.",
-        "Utilized modern frameworks and libraries to ensure responsive and dynamic user interfaces.",
+        "Co-authored a physics research paper with Prof. Thomas D. Cohen and Hyunwoo Oh at the University of Maryland, studying the computational cost of adiabatic quantum state preparation — a foundational step in quantum simulation of field theories.",
+        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2). Reviewer stated: \"I consider this to be a very significant result.\"",
+        "Numerically confirmed the conjecture that the cost proxy Q_D scales superlinearly (as L log L) with Hamiltonian path length L, demonstrating that adiabatic state preparation is generically more expensive than linear-scaling alternatives as system size grows.",
+        "Implemented numerical ODE solvers to simulate time evolution of quantum systems along long Hamiltonian paths, studying scaling behavior across four orders of magnitude of path length.",
+        "Results have direct implications for the feasibility of adiabatic methods in quantum field theory simulation on near-term quantum hardware.",
       ],
-      TECH_STACK: [
-        "TypeScript",
-        "React.js",
-        "Next.js",
-        "Tailwind CSS",
-        "ShadCN",
-        "Node.js",
-        "Express.js",
-        "MongoDB",
-        "Firebase",
-        "Contentful",
-        "AWS",
-        "GCP",
-        "Vercel",
-        "Nginx",
-        "Git & Github",
-      ],
+      TECH_STACK: ["Python", "NumPy", "SciPy", "Quantum Simulation", "Adiabatic Theorem", "Numerical Methods"],
     },
-    
   },
 
   PROJECTS: {
@@ -147,16 +131,16 @@ export const DATA = {
       VENUE: "arXiv:2412.08626 · University of Maryland",
       COLLABORATORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
       DESCRIPTION: [
+        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2). Reviewer: \"I consider this to be a very significant result.\"",
         "Co-authored with physicists at the University of Maryland, providing numerical evidence for a conjecture about the computational cost of adiabatic quantum state preparation — a key step in quantum simulation of field theories.",
         "Demonstrated that the cost proxy Q_D scales as L log L (superlinear) in path length L, confirming the conjecture that adiabatic state preparation is generically more expensive than linear-scaling alternatives as system size grows.",
         "Proved a no-go theorem showing why wall-clock time is not a valid cost proxy: rescaling the Hamiltonian energy scale changes time but leaves errors unchanged, so a dimensionless quantity Q_D is required.",
         "Studied random 4×4 Hamiltonians with time-reversal symmetry and non-periodic dynamics across path lengths spanning four orders of magnitude; compared three variants (Q_D1, Q_D2, Q_D1/2) and found consistent superlinear growth.",
-        "Results inform when adiabatic vs. alternative state-preparation methods (which have provably linear scaling) should be preferred in quantum field theory simulations.",
       ],
       HIGHLIGHTS: [
-        "Published on arXiv",
+        "Accepted: EPJ A",
+        "\"Very significant result\" — reviewer",
         "Q_D ~ L log L confirmed",
-        "Quantum computing research",
       ],
       TECH_STACK: ["Python", "NumPy", "SciPy", "Quantum Simulation", "Adiabatic Theorem", "Numerical ODE Solving"],
       TAGS: ["research"] as ProjectTag[],

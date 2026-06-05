@@ -23,8 +23,8 @@ export default function Page() {
 
   return (
     <>
-      <div 
-        className="absolute inset-0 z-[-1] h-screen dark:block hidden"
+      <div
+        className="absolute inset-0 z-[-1] h-screen"
         style={{
           maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'
@@ -85,7 +85,6 @@ export default function Page() {
           <AboutMe data={DATA.ABOUT_ME} />
           <Experience data={DATA.EXPERIENCE} />
           <Projects data={DATA.PROJECTS} all={DATA.ALL_PROJECTS} />
-          <Blogs data={DATA.BLOGS} />
           <Skills data={DATA.SKILLS} />
           {/* <Contact data={DATA.HEADER} /> */}
           <Footer />
