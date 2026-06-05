@@ -43,10 +43,23 @@ export const DATA = {
   },
 
   EXPERIENCE: {
+    "Boeing": {
+      WEBSITE: "https://www.boeing.com",
+      POSITION: "Incoming Systems Software Engineer Intern",
+      LOCATION: "Seattle, WA",
+      DURATION: "June 2026 – August 2026",
+      DESCRIPTION: [
+        "Joining the Otter team to develop low-level mission systems software and a virtual integration platform for the Boeing 737 Next Gen and P-8 Poseidon maritime patrol aircraft.",
+        "Building simulated and virtualized mission system software that models hardware behavior across acoustics, radar, and vision systems — used for pilot training and software validation.",
+        "Improving testing and scripting infrastructure for debugging mission systems software; working in C, C++, Python, and bash at the OS level rather than application or sensor layers.",
+      ],
+      TECH_STACK: ["C", "C++", "Python", "Bash", "Perl", "Mission Systems", "Virtual Integration"],
+    },
+
     "Quantum Computing Research": {
       WEBSITE: "https://arxiv.org/abs/2412.08626",
       POSITION: "Research Author",
-      LOCATION: "Poolesville, MD",
+      LOCATION: "College Park, MD",
       DURATION: "May 2024 – October 2024",
       COLLABORATORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
       DESCRIPTION: [
@@ -57,6 +70,21 @@ export const DATA = {
         "Studied random 4×4 Hamiltonians with time-reversal symmetry and non-periodic dynamics across path lengths spanning four orders of magnitude; compared three variants (Q_D1, Q_D2, Q_D1/2) and found consistent superlinear growth.",
       ],
       TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem", "Numerical Methods"],
+    },
+
+    "Chimes": {
+      WEBSITE: "https://www.chimes.org",
+      POSITION: "Assistive Technology Designer (Contract)",
+      LOCATION: "Remote",
+      DURATION: "October 2023 – January 2024",
+      DESCRIPTION: [
+        "Designed an RFID-based audio identification device for visually impaired custodial employees at Chimes, a nonprofit employing people with disabilities — helping workers safely distinguish cleaning chemicals without relying on color or label recognition.",
+        "Built a two-ESP32 pipeline: an RFID reader identifies tagged equipment and transmits the ID via ESP-NOW to a receiver ESP32, which matches it to an audio file on an SD card and plays it through a 3D-printed speaker enclosure.",
+        "Ran a blindfolded user study with 6 participants across 6 trials — participants identified 5 chemicals 30.1% faster with the device; iterated on the design based on results, adding tactile attachment points and upgrading to an external speaker module.",
+        "CAD-modeled a custom speaker enclosure in OnShape with honeycomb mesh acoustics, easy-repair access, and structural independence; housed the receiver ESP32, serial MP3 module, and speaker driver inside.",
+        "Device was designed to scale to hundreds of employees across Chimes locations.",
+      ],
+      TECH_STACK: ["ESP32", "RFID", "ESP-NOW", "C++", "Arduino", "OnShape", "CAD", "3D Printing", "Raspberry Pi"],
     },
   },
 
