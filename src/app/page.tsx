@@ -16,6 +16,7 @@ import {
 } from "@/components/sections";
 
 import DarkVeil from "@/blocks/Backgrounds/DarkVeil/DarkVeil";
+import Iridescence from "@/blocks/Backgrounds/Iridescence/Iridescence";
 
 import TargetCursor from "@/components/ui/target-cursor";
 import useMobileDetection from "@/hooks/use-mobile";
@@ -33,6 +34,15 @@ export default function Page() {
         }}
       >
         <DarkVeil />
+      </div>
+      <div
+        className="dark:hidden absolute inset-0 z-[-1] h-screen"
+        style={{
+          maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'
+        }}
+      >
+        <Iridescence color={[1, 1, 1]} amplitude={0.08} speed={0.6} mouseReact={false} />
       </div>
 
 
