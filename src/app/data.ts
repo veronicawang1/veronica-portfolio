@@ -47,15 +47,16 @@ export const DATA = {
       WEBSITE: "https://arxiv.org/abs/2412.08626",
       POSITION: "Research Author",
       LOCATION: "Poolesville, MD",
-      DURATION: "June 2024 – January 2026",
+      DURATION: "May 2024 – October 2024",
+      COLLABORATORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
       DESCRIPTION: [
-        "Co-authored a physics research paper with Prof. Thomas D. Cohen and Hyunwoo Oh at the University of Maryland, studying the computational cost of adiabatic quantum state preparation — a foundational step in quantum simulation of field theories.",
-        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2). Reviewer stated: \"I consider this to be a very significant result.\"",
-        "Numerically confirmed the conjecture that the cost proxy Q_D scales superlinearly (as L log L) with Hamiltonian path length L, demonstrating that adiabatic state preparation is generically more expensive than linear-scaling alternatives as system size grows.",
-        "Implemented numerical ODE solvers to simulate time evolution of quantum systems along long Hamiltonian paths, studying scaling behavior across four orders of magnitude of path length.",
-        "Results have direct implications for the feasibility of adiabatic methods in quantum field theory simulation on near-term quantum hardware.",
+        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2). Reviewer considered this to be \"a very significant result.\"",
+        "Co-authored with physicists at the University of Maryland, providing numerical evidence for a conjecture about the computational cost of adiabatic quantum state preparation — a key step in quantum simulation of field theories.",
+        "Demonstrated that the cost proxy Q_D scales as L log L (superlinear) in path length L, confirming the conjecture that adiabatic state preparation is generically more expensive than linear-scaling alternatives as system size grows.",
+        "Proved a no-go theorem showing why wall-clock time is not a valid cost proxy: rescaling the Hamiltonian energy scale changes time but leaves errors unchanged, so a dimensionless quantity Q_D is required.",
+        "Studied random 4×4 Hamiltonians with time-reversal symmetry and non-periodic dynamics across path lengths spanning four orders of magnitude; compared three variants (Q_D1, Q_D2, Q_D1/2) and found consistent superlinear growth.",
       ],
-      TECH_STACK: ["Python", "NumPy", "SciPy", "Quantum Simulation", "Adiabatic Theorem", "Numerical Methods"],
+      TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem", "Numerical Methods"],
     },
   },
 
@@ -63,6 +64,7 @@ export const DATA = {
     "Surgical Phase Recognition for Aneurysm Clipping": {
       SLUG: "surgical-phase-recognition",
       VENUE: "Stanford University · CS231N",
+      COLLABORATORS: ["Emily Oberleitner", "Nicole Wong", "Dr. Jinendra Ekanayake"],
       DESCRIPTION: [
         "Built a two-stage pipeline classifying each second of intraoperative neurosurgery video into one of 4 phases: Brain Exposure, Parent Vessel Identification, Dome & Neck Identification, and Clipping.",
         "Designed NeuroOperA, a causal transformer inspired by OperA — and outperformed it, achieving a Viterbi segmental F1@10 of 0.944 vs. OperA's ~0.80 on its benchmark dataset.",
@@ -75,7 +77,7 @@ export const DATA = {
         "Frame Acc: 95.7%",
         "Beats OperA",
       ],
-      TECH_STACK: ["Python", "PyTorch", "ResNet50", "MS-TCN", "Transformer", "Viterbi Decoding", "t-SNE"],
+      TECH_STACK: ["Python", "PyTorch", "ResNet50", "MS-TCN", "Transformer", "Viterbi Decoding", "t-SNE", "GCP"],
       TAGS: ["research", "ml"] as ProjectTag[],
       IMAGE: SkygazeImage,
       HIDDEN: false,
@@ -97,7 +99,7 @@ export const DATA = {
         "Novel: attention over weight matrices",
         "3 benchmark datasets",
       ],
-      TECH_STACK: ["Python", "PyTorch", "Graph Neural Networks", "Transformer", "EvolveGCN", "Weights & Biases", "Scikit-learn"],
+      TECH_STACK: ["Python", "PyTorch", "Graph Neural Networks", "Transformer", "EvolveGCN", "Weights & Biases", "Scikit-learn", "Docker", "GCP"],
       TAGS: ["research", "ml"] as ProjectTag[],
       IMAGE: LibraryImage,
       HIDDEN: false,
@@ -105,7 +107,6 @@ export const DATA = {
 
     "JobShield: Detecting Fraudulent Job Postings": {
       SLUG: "jobshield",
-      VENUE: "Stanford University · CS152",
       COLLABORATORS: ["Yohannes Aklilu", "Anna Roth", "Anayochukwu Edwin Uche", "Victoria Yang"],
       DESCRIPTION: [
         "Built a full-stack job posting platform with a three-layer fraud detection pipeline targeting real malware attack vectors (OtterCookie, FlexibleFerret) that have been active since 2024.",
@@ -119,7 +120,7 @@ export const DATA = {
         "4.5× cheaper than LLM-only",
         "95/100 fraud caught",
       ],
-      TECH_STACK: ["Next.js", "TypeScript", "Supabase", "Gemini 2.5 Flash", "Scikit-learn", "TF-IDF", "Vercel", "PostgreSQL"],
+      TECH_STACK: ["Next.js", "TypeScript", "Supabase", "Gemini 2.5 Flash", "Scikit-learn", "TF-IDF", "Vercel", "PostgreSQL", "GCP"],
       TAGS: ["fullstack", "ml"] as ProjectTag[],
       IMAGE: TodoImage,
       HIDDEN: false,
@@ -131,7 +132,7 @@ export const DATA = {
       VENUE: "arXiv:2412.08626 · University of Maryland",
       COLLABORATORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
       DESCRIPTION: [
-        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2). Reviewer: \"I consider this to be a very significant result.\"",
+        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2). Reviewer considered this to be \"a very significant result.\"",
         "Co-authored with physicists at the University of Maryland, providing numerical evidence for a conjecture about the computational cost of adiabatic quantum state preparation — a key step in quantum simulation of field theories.",
         "Demonstrated that the cost proxy Q_D scales as L log L (superlinear) in path length L, confirming the conjecture that adiabatic state preparation is generically more expensive than linear-scaling alternatives as system size grows.",
         "Proved a no-go theorem showing why wall-clock time is not a valid cost proxy: rescaling the Hamiltonian energy scale changes time but leaves errors unchanged, so a dimensionless quantity Q_D is required.",
@@ -145,7 +146,7 @@ export const DATA = {
       TECH_STACK: ["Python", "NumPy", "SciPy", "Quantum Simulation", "Adiabatic Theorem", "Numerical ODE Solving"],
       TAGS: ["research"] as ProjectTag[],
       IMAGE: LibraryImage,
-      HIDDEN: false,
+      HIDDEN: true,
     },
 
     "Boeing Project": {
@@ -170,7 +171,7 @@ export const DATA = {
 
   },
 
-  ALL_PROJECTS: "https://github.com/Vort3xed",
+  ALL_PROJECTS: "https://github.com/veronicawang1",
 
   BLOGS: {
     "Build your own network exploitation multitool": {

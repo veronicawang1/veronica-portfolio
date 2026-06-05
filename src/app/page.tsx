@@ -25,7 +25,7 @@ export default function Page() {
   return (
     <>
       <div
-        className="absolute inset-0 z-[-1] h-screen"
+        className="hidden dark:block absolute inset-0 z-[-1] h-screen"
         style={{
           maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'

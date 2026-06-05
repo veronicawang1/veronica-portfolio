@@ -8,6 +8,7 @@ interface IExperienceData {
   DURATION: string;
   DESCRIPTION: string[];
   TECH_STACK: string[];
+  COLLABORATORS?: string[];
 }
 
 export function Experience({
@@ -42,6 +43,11 @@ export function Experience({
                       {extractDomain(value.WEBSITE)} <ArrowUpRight size={18} />
                     </a>
                   </p>
+                  {value.COLLABORATORS && value.COLLABORATORS.length > 0 && (
+                    <p className="text-xs text-muted-foreground/60 mt-0.5">
+                      w/ {value.COLLABORATORS.join(", ")}
+                    </p>
+                  )}
                 </div>
                 <p className="text-muted-foreground text-sm">
                   {value.DURATION}
