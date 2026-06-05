@@ -103,18 +103,18 @@ export const DATA = {
       VENUE: "Stanford University · CS231N",
       COLLABORATORS: ["Emily Oberleitner", "Nicole Wong", "Dr. Jinendra Ekanayake"],
       DESCRIPTION: [
-        "Built a two-stage pipeline classifying each second of intraoperative neurosurgery video into one of 4 phases: Brain Exposure, Parent Vessel Identification, Dome & Neck Identification, and Clipping.",
-        "Designed NeuroOperA, a causal transformer inspired by OperA — and outperformed it, achieving a Viterbi segmental F1@10 of 0.944 vs. OperA's ~0.80 on its benchmark dataset.",
+        "Collaborated with Stanford School of Medicine.",
+        "Sourced a proprietary dataset of 48 intraoperative microscope videos (40,725 labeled frames) of aneurysm clipping surgery, annotated using CVAT across 4 surgical phases: Brain Exposure, Parent Vessel Identification, Dome & Neck Identification, and Clipping. Used video-level train/val splits to prevent temporal data leakage.",
+        "Designed NeuroOperA, a causal transformer for phase recognition adapted from the laparoscopic OperA — and outperformed it, achieving a Viterbi segmental F1@10 of 0.944 vs. OperA's ~0.80. Also implemented MS-TCN (which OperA did not), achieving ~95% validation accuracy vs. OperA's 92%.",
         "Showed that fine-tuning ResNet50 on surgical frames (vs. frozen ImageNet weights) was the single largest factor: frame accuracy jumped from 53% to 95.7% and F1@10 from 0.553 to 0.895.",
         "Applied Viterbi decoding with a data-driven learned transition matrix, outperforming hand-crafted surgical priors across all thresholds.",
-        "Trained and evaluated on 48 intraoperative microscope videos (40,725 labeled frames) with video-level splits to prevent temporal data leakage.",
       ],
       HIGHLIGHTS: [
         "F1@10: 0.944",
-        "Frame Acc: 95.7%",
-        "Beats OperA",
+        "Best Val Acc: 95.7%",
+        "Edit Dist: 0.809",
       ],
-      TECH_STACK: ["Python", "PyTorch", "ResNet50", "MS-TCN", "Transformer", "Viterbi Decoding", "t-SNE", "GCP"],
+      TECH_STACK: ["Python", "PyTorch", "ResNet50", "MS-TCN", "Transformer", "Viterbi Decoding", "CVAT", "t-SNE", "Confusion Matrix", "Ablation Study", "GCP"],
       TAGS: ["research", "ml"] as ProjectTag[],
       IMAGE: SkygazeImage,
       HIDDEN: false,
@@ -148,7 +148,6 @@ export const DATA = {
       DESCRIPTION: [
         "Built a full-stack job posting platform with a three-layer fraud detection pipeline targeting real malware attack vectors (OtterCookie, FlexibleFerret) that have been active since 2024.",
         "Hybrid LR→LLM pipeline achieved F1 of 0.913, catching 95/100 fraudulent postings while being 4.5× cheaper than using Gemini alone ($0.077/1k vs $0.35/1k).",
-        "Three-tier classification: auto-approve (LR score ≤ 0.20), escalate to Gemini 2.5 Flash (uncertain 22%), or auto-block (score ≥ 0.80) — errors always route to a human moderator, never auto-published.",
         "Automatic feedback loop injects every moderator decision as a labeled few-shot example into subsequent LLM calls, enabling continuous improvement without retraining.",
         "Logistic Regression + TF-IDF on posting text plus 8 metadata flags (missing salary, missing requirements, etc.) handles obvious cases in under 0.05ms.",
       ],
@@ -180,7 +179,7 @@ export const DATA = {
         "\"Very significant result\" — reviewer",
         "Q_D ~ L log L confirmed",
       ],
-      TECH_STACK: ["Python", "NumPy", "SciPy", "Quantum Simulation", "Adiabatic Theorem", "Numerical ODE Solving"],
+      TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem"],
       TAGS: ["research"] as ProjectTag[],
       IMAGE: LibraryImage,
       HIDDEN: true,
@@ -222,16 +221,18 @@ export const DATA = {
   },
 
   SKILLS: {
-    Languages: ["Python", "JavaScript", "TypeScript", "HTML/CSS", "LaTeX"],
+    Languages: ["Python", "JavaScript", "TypeScript", "HTML/CSS", "LaTeX", "C++", "C", "Java", "x86"],
     "ML & AI": [
       "PyTorch",
       "Scikit-learn",
       "ResNet50",
       "Transformers",
+      "RNNs",
       "Graph Neural Networks",
       "MS-TCN",
       "TF-IDF",
       "Viterbi Decoding",
+      "Weights & Biases",
     ],
     "Web & Full-Stack": [
       "React.js",
@@ -244,9 +245,9 @@ export const DATA = {
     "Data & Backend": [
       "PostgreSQL",
       "MongoDB",
-      "Firebase",
       "Supabase",
       "Redis",
+      "Excel",
     ],
     "Cloud & Tools": [
       "AWS",
@@ -254,15 +255,25 @@ export const DATA = {
       "GCP",
       "Git",
       "Docker",
-      "Weights & Biases",
+      "CVAT",
     ],
     "Quantum & Scientific Computing": [
       "Adiabatic state preparation",
       "Quantum simulation",
-      "Numerical ODE solving",
       "NumPy",
       "SciPy",
     ],
+    Engineering: [
+      "OnShape",
+      "Fusion 360",
+      "3D Printing",
+      "Woodworking",
+      "Soldering",
+      "Arduino",
+      "Raspberry Pi",
+      "CNC",
+    ],
+    Design: ["Figma", "Procreate", "Procreate Dreams"],
   },
 
   ART: {
@@ -282,7 +293,7 @@ export const DATA = {
       },
       {
         title: "Long-tailed Duck",
-        medium: "Acrylic",
+        medium: "Acrylic on gessobord",
         year: "2023",
         award: "FWS Junior Duck Stamp — MD State, national traveling display",
         image: "/art/duck-long-tailed.jpg",
@@ -302,7 +313,7 @@ export const DATA = {
       },
       {
         title: "White-cheeked Pintails",
-        medium: "Oil on gessoboard",
+        medium: "Oil on gessobord",
         year: "2023",
         award: "FWS Junior Duck Stamp — MD State",
         image: "/art/ducks-spot-billed.jpg",
