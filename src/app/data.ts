@@ -25,23 +25,21 @@ export interface IProjectData {
 export const DATA = {
   HEADER: {
     NAME: "Veronica",
-    AGE: "18",
-    PRONOUN: "she/her",
     HEADLINE:
-      "passionate about pooping and coding, specializing in Next.js, TypeScript, and Node.js. also the best girlfriend ever",
+      "passionate about graphic design, computer vision, world modeling, games, and art",
     RESUME:
       "https://upload.wikimedia.org/wikipedia/commons/6/66/Breviceps-adspersus-adspersus.jpg",
-    EMAIL: "mailto:veronica.wang@example.com",
-    GITHUB: "https://github.com/Veronica-Wang",
-    LINKEDIN: "https://www.linkedin.com/in/veronica-wang",
+    EMAIL: "mailto:veronicawang2007@gmail.com",
+    GITHUB: "https://github.com/veronicawang1",
+    LINKEDIN: "https://www.linkedin.com/in/veronica-wang1/",
   },
 
   ABOUT_ME: {
     INTRO:
-      "Hey! im veronica. i like food.",
+      "Hey! I'm Veronica, a CS student at Stanford. I'm drawn to problems at the intersection of perception and understanding — computer vision, world modeling, and how intelligent systems represent and reason about the world.",
     EXPERTISE:
-      "nextjs, tailwind, grpc, trpc, hardware acceleration, quantum mechanics. i specialize in load balancing websocket servers using kubernetes clusters and synchronizing machine states using replicated redis upstash databases.",
-    BLOG: "i like writing ",
+      "I've done research in surgical video understanding (phase recognition with transformers), quantum computing (adiabatic state preparation scaling), and dynamic graph learning. Outside of research I build full-stack products and spend time on graphic design and generative art. Currently working in Python, PyTorch, and TypeScript.",
+    BLOG: "",
   },
 
   EXPERIENCE: {
@@ -143,6 +141,29 @@ export const DATA = {
       HIDDEN: false,
     },
 
+    "Computational Cost of Adiabatic State Preparation": {
+      SLUG: "adiabatic-state-preparation",
+      PAPER: "https://arxiv.org/abs/2412.08626",
+      VENUE: "arXiv:2412.08626 · University of Maryland",
+      COLLABORATORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
+      DESCRIPTION: [
+        "Co-authored with physicists at the University of Maryland, providing numerical evidence for a conjecture about the computational cost of adiabatic quantum state preparation — a key step in quantum simulation of field theories.",
+        "Demonstrated that the cost proxy Q_D scales as L log L (superlinear) in path length L, confirming the conjecture that adiabatic state preparation is generically more expensive than linear-scaling alternatives as system size grows.",
+        "Proved a no-go theorem showing why wall-clock time is not a valid cost proxy: rescaling the Hamiltonian energy scale changes time but leaves errors unchanged, so a dimensionless quantity Q_D is required.",
+        "Studied random 4×4 Hamiltonians with time-reversal symmetry and non-periodic dynamics across path lengths spanning four orders of magnitude; compared three variants (Q_D1, Q_D2, Q_D1/2) and found consistent superlinear growth.",
+        "Results inform when adiabatic vs. alternative state-preparation methods (which have provably linear scaling) should be preferred in quantum field theory simulations.",
+      ],
+      HIGHLIGHTS: [
+        "Published on arXiv",
+        "Q_D ~ L log L confirmed",
+        "Quantum computing research",
+      ],
+      TECH_STACK: ["Python", "NumPy", "SciPy", "Quantum Simulation", "Adiabatic Theorem", "Numerical ODE Solving"],
+      TAGS: ["research"] as ProjectTag[],
+      IMAGE: LibraryImage,
+      HIDDEN: false,
+    },
+
     "Boeing Project": {
       SLUG: "boeing-project",
       LIVE_PREVIEW: "https://www.boeing.com/",
@@ -179,51 +200,47 @@ export const DATA = {
   },
 
   SKILLS: {
-    Languages: ["JavaScript", "TypeScript", "HTML", "CSS", "Node.js"],
-    Frameworks: [
+    Languages: ["Python", "JavaScript", "TypeScript", "HTML/CSS", "LaTeX"],
+    "ML & AI": [
+      "PyTorch",
+      "Scikit-learn",
+      "ResNet50",
+      "Transformers",
+      "Graph Neural Networks",
+      "MS-TCN",
+      "TF-IDF",
+      "Viterbi Decoding",
+    ],
+    "Web & Full-Stack": [
       "React.js",
       "Next.js",
-      "Vue.js",
-      "Astro",
-      "Express.js",
-      "React Native",
-      "Expo",
-      "Electron",
-      "PWA",
-    ],
-    Libraries: [
-      "React Query",
+      "Node.js",
       "Tailwind CSS",
       "ShadCN UI",
-      "Ant Design",
-      "Styled Components",
-      "Material UI",
+      "Express.js",
     ],
-    "Database & Backend": [
+    "Data & Backend": [
+      "PostgreSQL",
       "MongoDB",
-      "Redis",
-      "Contentful",
       "Firebase",
-      "GraphQL",
-      "JWT",
-      "Auth.js",
-      "Clerk",
+      "Supabase",
+      "Redis",
     ],
-    "Cloud & Deployment": [
-      "Google Cloud Platform (GCP)",
-      "Amazon Web Services (AWS)",
+    "Cloud & Tools": [
+      "AWS",
       "Vercel",
-    ],
-    "Tools & Platforms": [
+      "GCP",
       "Git",
-      "GitHub",
-      "Postman",
       "Docker",
-      "Visual Studio Code",
-      "Prettier",
-      "Sentry",
+      "Weights & Biases",
     ],
-    "Package Managers & Build Tools": ["NPM", "PNPM", "Yarn", "Bun", "Vite"],
+    "Quantum & Scientific Computing": [
+      "Adiabatic state preparation",
+      "Quantum simulation",
+      "Numerical ODE solving",
+      "NumPy",
+      "SciPy",
+    ],
   },
 };
 
