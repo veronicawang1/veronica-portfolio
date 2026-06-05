@@ -6,6 +6,7 @@ import {
   Art,
   Blogs,
   Contact,
+  Education,
   Experience,
   Footer,
   Header,
@@ -84,6 +85,7 @@ export default function Page() {
 
           <Header data={DATA.HEADER} />
           <AboutMe data={DATA.ABOUT_ME} />
+          <Education data={DATA.EDUCATION} />
           <Experience data={DATA.EXPERIENCE} />
           <Projects data={DATA.PROJECTS} all={DATA.ALL_PROJECTS} />
           <Skills data={DATA.SKILLS} />

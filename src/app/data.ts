@@ -42,6 +42,15 @@ export const DATA = {
     BLOG: "",
   },
 
+  EDUCATION: [
+    {
+      SCHOOL: "Stanford University",
+      DEGREE: "B.S. Computer Science",
+      LOCATION: "Stanford, CA",
+      DURATION: "2025 – 2029",
+    },
+  ],
+
   EXPERIENCE: {
     "Boeing": {
       WEBSITE: "https://www.boeing.com",
