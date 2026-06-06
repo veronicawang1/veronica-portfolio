@@ -24,8 +24,8 @@ export const MovingElement: React.FC<MovingElementProps> = ({
 }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const textX = useTransform(x, (latest) => latest * 2);
-  const textY = useTransform(y, (latest) => latest * 2);
+  const textX = useTransform(x, (latest) => latest * 0.8);
+  const textY = useTransform(y, (latest) => latest * 0.8);
 
   const mapRange = (
     inputLower: number,
@@ -52,8 +52,8 @@ export const MovingElement: React.FC<MovingElementProps> = ({
     const xRange = mapRange(0, bounds.width, -1, 1)(relativeX);
     const yRange = mapRange(0, bounds.height, -1, 1)(relativeY);
 
-    x.set(xRange * 5);
-    y.set(yRange * 5);
+    x.set(xRange * 2);
+    y.set(yRange * 2);
   };
 
   return (

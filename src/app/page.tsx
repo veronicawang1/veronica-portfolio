@@ -27,7 +27,7 @@ export default function Page() {
   return (
     <>
       <div
-        className="hidden dark:block absolute inset-0 z-[-1] h-screen"
+        className="absolute inset-0 z-[-1] h-screen"
         style={{
           maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'
@@ -36,7 +36,7 @@ export default function Page() {
         <DarkVeil />
       </div>
       <div
-        className="dark:hidden absolute inset-0 z-[-1] h-screen"
+        className="absolute inset-0 z-[-1] h-screen"
         style={{
           maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'
