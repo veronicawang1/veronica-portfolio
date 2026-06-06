@@ -36,7 +36,7 @@ export const DATA = {
 
   ABOUT_ME: {
     INTRO:
-      "Hey! I'm Veronica, a CS student at Stanford. I'm drawn to problems at the intersection of perception and understanding — computer vision, world modeling, and how intelligent systems represent and reason about the world.",
+      "Hi! I'm Veronica, a CS student at Stanford. I'm drawn to problems at the intersection of perception and understanding — computer vision, world modeling, and how intelligent systems represent and reason about the world.",
     EXPERTISE:
       "I've done research in surgical video understanding (phase recognition with transformers), quantum computing (adiabatic state preparation scaling), and dynamic graph learning. Outside of research I build full-stack products and spend time on graphic design and studio art. Currently mainly working in C++ and learning 3D rendering plus AI/ML.",
     BLOG: "",
@@ -246,7 +246,6 @@ export const DATA = {
       "PostgreSQL",
       "MongoDB",
       "Supabase",
-      "Redis",
       "Excel",
     ],
     "Cloud & Tools": [
