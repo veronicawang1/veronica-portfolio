@@ -11,8 +11,8 @@ export function Header({ data }: { data: Record<string, string> }) {
   };
 
   return (
-    <section className="pt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-      <div className="space-y-2 sm:pl-8">
+    <section className="pt-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div className="space-y-2">
         <p className="font-normal text-muted-foreground text-base">
           hi there👋, I&apos;m
         </p>
@@ -20,7 +20,7 @@ export function Header({ data }: { data: Record<string, string> }) {
         <div>
           <SplitText
             text="Veronica"
-            className="text-7xl font-semibold"
+            className="text-[clamp(2rem,5vw,3.8rem)] font-semibold"
             delay={100}
             duration={0.6}
             ease="power3.out"
@@ -63,21 +63,21 @@ export function Header({ data }: { data: Record<string, string> }) {
         <figure
           className="group m-0 cursor-pointer"
           style={{
-            background: 'hsl(270 40% 14%)',
+            background: 'hsl(245 45% 14%)',
             padding: '14px 14px 0',
-            border: '1px solid hsl(270 30% 35%)',
+            border: '1px solid hsl(245 35% 35%)',
             borderRadius: '4px',
-            boxShadow: '0 22px 50px rgba(40, 20, 60, 0.5)',
+            boxShadow: '0 22px 50px rgba(20, 20, 70, 0.5)',
             transition: 'transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease',
             width: '220px',
           }}
           onMouseEnter={(e) => {
             (e.currentTarget as HTMLElement).style.transform = 'scale(1.02)';
-            (e.currentTarget as HTMLElement).style.boxShadow = '0 28px 60px rgba(40, 20, 60, 0.7)';
+            (e.currentTarget as HTMLElement).style.boxShadow = '0 28px 60px rgba(20, 20, 70, 0.7)';
           }}
           onMouseLeave={(e) => {
             (e.currentTarget as HTMLElement).style.transform = '';
-            (e.currentTarget as HTMLElement).style.boxShadow = '0 22px 50px rgba(40, 20, 60, 0.5)';
+            (e.currentTarget as HTMLElement).style.boxShadow = '0 22px 50px rgba(20, 20, 70, 0.5)';
           }}
         >
           <Image
@@ -100,7 +100,7 @@ export function Header({ data }: { data: Record<string, string> }) {
               textAlign: 'center',
               fontStyle: 'italic',
               fontSize: '0.9rem',
-              color: 'hsl(270 30% 70%)',
+              color: 'hsl(245 35% 70%)',
               padding: '0.6rem 0 0.75rem',
             }}
           >

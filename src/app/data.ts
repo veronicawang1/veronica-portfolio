@@ -27,8 +27,7 @@ export const DATA = {
     NAME: "Veronica",
     HEADLINE:
       "passionate about graphic design, computer vision, world modeling, games, and art",
-    RESUME:
-      "https://upload.wikimedia.org/wikipedia/commons/6/66/Breviceps-adspersus-adspersus.jpg",
+    RESUME: "/resume/resume.pdf",
     EMAIL: "mailto:veronicawang2007@gmail.com",
     GITHUB: "https://github.com/veronicawang1",
     LINKEDIN: "https://www.linkedin.com/in/veronica-wang1/",
@@ -133,8 +132,8 @@ export const DATA = {
       ],
       HIGHLIGHTS: [
         "+8.4pt micro-F1 on Bitcoin-OTC",
-        "Novel: attention over weight matrices",
-        "3 benchmark datasets",
+        "GRU → Transformer weight evolution",
+        "Reproduced baselines to ±1%",
       ],
       TECH_STACK: ["Python", "PyTorch", "Graph Neural Networks", "Transformer", "EvolveGCN", "Weights & Biases", "Scikit-learn", "Docker", "GCP"],
       TAGS: ["research", "ml"] as ProjectTag[],
