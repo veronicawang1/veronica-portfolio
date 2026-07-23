@@ -1,5 +1,5 @@
 import { DATA, getProjectData } from "@/app/data";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, FileText, Presentation } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -30,6 +30,26 @@ export default async function Page({ params }: PageProps) {
                 rel="noopener noreferrer"
               >
                 live preview <ArrowUpRight size={18} />
+              </a>
+            )}
+            {project[1].PAPER && (
+              <a
+                className="flex items-center gap-1"
+                href={project[1].PAPER}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                paper <FileText size={16} />
+              </a>
+            )}
+            {project[1].POSTER && (
+              <a
+                className="flex items-center gap-1"
+                href={project[1].POSTER}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                poster <Presentation size={16} />
               </a>
             )}
             {project[1].GITHUB && (

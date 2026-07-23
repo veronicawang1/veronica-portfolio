@@ -31,9 +31,11 @@ export function Header({ data }: { data: Record<string, string> }) {
             rootMargin="-100px"
             textAlign="left"
           />
-          <h2 className="font-normal text-primary/90 text-base mt-1">
-            <p>{data.HEADLINE}</p>
-          </h2>
+          {data.HEADLINE && (
+            <h2 className="font-normal text-primary/90 text-base mt-1">
+              <p>{data.HEADLINE}</p>
+            </h2>
+          )}
         </div>
 
         <div className="flex items-center gap-2 text-sm pt-1">

@@ -1,14 +1,40 @@
+"use client";
+
 import { extractDomain } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, FileText, Quote } from "lucide-react";
+import { useState } from "react";
 
 interface IExperienceData {
-  WEBSITE: string;
+  WEBSITE?: string;
+  PAPER?: string;
+  CITATION?: string;
   POSITION: string;
   LOCATION: string;
   DURATION: string;
   DESCRIPTION: string[];
   TECH_STACK: string[];
   COLLABORATORS?: string[];
+}
+
+function CitationTab({ citation }: { citation: string }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="mt-3 pl-3">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center gap-1 text-xs text-muted-foreground/70 hover:text-primary transition-colors cursor-target"
+      >
+        <Quote size={12} /> cite
+      </button>
+      {open && (
+        <p className="mt-2 text-xs text-muted-foreground/80 bg-primary/5 border border-primary/10 rounded px-3 py-2 leading-relaxed">
+          {citation}
+        </p>
+      )}
+    </div>
+  );
 }
 
 export function Experience({
@@ -32,16 +58,30 @@ export function Experience({
                       {value.LOCATION}
                     </span>
                   </p>
-                  <p className="flex items-center text-sm">
-                    at,{" "}
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 ml-1"
-                      href={value.WEBSITE}
-                    >
-                      {extractDomain(value.WEBSITE)} <ArrowUpRight size={18} />
-                    </a>
+                  <p className="flex items-center gap-3 text-sm">
+                    {value.WEBSITE && (
+                      <span className="flex items-center">
+                        at,{" "}
+                        <a
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 ml-1"
+                          href={value.WEBSITE}
+                        >
+                          {extractDomain(value.WEBSITE)} <ArrowUpRight size={18} />
+                        </a>
+                      </span>
+                    )}
+                    {value.PAPER && (
+                      <a
+                        className="flex items-center gap-1 hover:text-primary transition-colors"
+                        href={value.PAPER}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        publication <FileText size={14} />
+                      </a>
+                    )}
                   </p>
                   {value.COLLABORATORS && value.COLLABORATORS.length > 0 && (
                     <p className="text-xs text-muted-foreground/60 mt-0.5">
@@ -72,6 +112,8 @@ export function Experience({
                   </li>
                 ))}
               </ul>
+
+              {value.CITATION && <CitationTab citation={value.CITATION} />}
             </div>
           </li>
         ))}
