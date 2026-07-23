@@ -11,6 +11,7 @@ export interface IProjectData {
   LIVE_PREVIEW?: string;
   GITHUB?: string;
   PAPER?: string;
+  POSTER?: string;
   DESCRIPTION: string[];
   NOTE?: string;
   TECH_STACK: string[];
@@ -25,8 +26,7 @@ export interface IProjectData {
 export const DATA = {
   HEADER: {
     NAME: "Veronica",
-    HEADLINE:
-      "passionate about graphic design, computer vision, world modeling, games, and art",
+    HEADLINE: "",
     RESUME: "/resume/resume.pdf",
     EMAIL: "mailto:veronicawang2007@gmail.com",
     GITHUB: "https://github.com/veronicawang1",
@@ -35,7 +35,7 @@ export const DATA = {
 
   ABOUT_ME: {
     INTRO:
-      "Hi! I'm Veronica, a CS student at Stanford. I'm drawn to problems at the intersection of perception and understanding — computer vision, world modeling, and how intelligent systems represent and reason about the world.",
+      "Hi! I'm Veronica, a CS student at Stanford. I'm drawn to problems relating to visual perception stemming from my interests in computer vision and design. Currently I'm especially interested in using diffusion and generative AI to build realistic world models to use in fields like robotic training, art, games, and HCI.",
     EXPERTISE:
       "I've done research in surgical video understanding (phase recognition with transformers), quantum computing (adiabatic state preparation scaling), and dynamic graph learning. Outside of research I build full-stack products and spend time on graphic design and studio art. Currently mainly working in C++ and learning 3D rendering plus AI/ML.",
     BLOG: "",
@@ -53,52 +53,38 @@ export const DATA = {
   EXPERIENCE: {
     "Boeing": {
       WEBSITE: "https://www.boeing.com",
-      POSITION: "Incoming Systems Software Engineer Intern",
+      POSITION: "Software Engineering Intern",
       LOCATION: "Seattle, WA",
       DURATION: "June 2026 – August 2026",
       DESCRIPTION: [
-        "Joining the Otter team to develop low-level mission systems software and a virtual integration platform for the Boeing 737 Next Gen and P-8 Poseidon maritime patrol aircraft.",
-        "Building simulated and virtualized mission system software that models hardware behavior across acoustics, radar, and vision systems — used for pilot training and software validation.",
-        "Improving testing and scripting infrastructure for debugging mission systems software; working in C, C++, Python, and bash at the OS level rather than application or sensor layers.",
+        "Implemented ramoops kernel crash persistence and designed a live serial logging system for the P-8 aircraft mission computer, allowing system states and kernel logs across 45 systems to be preserved for debugging.",
+        "Worked with hardware to identify active console ports and evaluated a screen based approach to log each console session with tmux/telnet session management, systemd startup, and logrotate retention.",
       ],
       TECH_STACK: ["C", "C++", "Python", "Bash", "Perl", "Mission Systems", "Virtual Integration"],
     },
 
     "Quantum Computing Research": {
-      WEBSITE: "https://arxiv.org/abs/2412.08626",
+      PAPER: "https://link.springer.com/article/10.1140/epja/s10050-026-01879-4?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=oa_20260623&utm_content=10.1140/epja/s10050-026-01879-4",
+      CITATION: "Cohen, T.D., Oh, H. & Wang, V. Numerical study of computational cost of maintaining adiabaticity for long paths. Eur. Phys. J. A 62, 122 (2026). https://doi.org/10.1140/epja/s10050-026-01879-4",
       POSITION: "Research Author",
       LOCATION: "College Park, MD",
       DURATION: "May 2024 – October 2024",
       COLLABORATORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
       DESCRIPTION: [
-        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2). Reviewer considered this to be \"a very significant result.\"",
-        "Co-authored with physicists at the University of Maryland, providing numerical evidence for a conjecture about the computational cost of adiabatic quantum state preparation — a key step in quantum simulation of field theories.",
+        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2).",
+        "Co-authored with physicists at the University of Maryland, providing numerical evidence for a conjecture about the computational cost of adiabatic quantum state preparation.",
         "Demonstrated that the cost proxy Q_D scales as L log L (superlinear) in path length L, confirming the conjecture that adiabatic state preparation is generically more expensive than linear-scaling alternatives as system size grows.",
-        "Proved a no-go theorem showing why wall-clock time is not a valid cost proxy: rescaling the Hamiltonian energy scale changes time but leaves errors unchanged, so a dimensionless quantity Q_D is required.",
-        "Studied random 4×4 Hamiltonians with time-reversal symmetry and non-periodic dynamics across path lengths spanning four orders of magnitude; compared three variants (Q_D1, Q_D2, Q_D1/2) and found consistent superlinear growth.",
+        "Built a simulation pipeline to orchestrate 1k+ runs with strict 10% error gates and validated results across 3 independent proxy formulations and multiple Hamiltonian draws to ensure the scaling behavior was robust.",
       ],
       TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem", "Numerical Methods"],
-    },
-
-    "Chimes": {
-      WEBSITE: "https://www.chimes.org",
-      POSITION: "Assistive Technology Designer (Contract)",
-      LOCATION: "Remote",
-      DURATION: "October 2023 – January 2024",
-      DESCRIPTION: [
-        "Designed an RFID-based audio identification device for visually impaired custodial employees at Chimes, a nonprofit employing people with disabilities — helping workers safely distinguish cleaning chemicals without relying on color or label recognition.",
-        "Built a two-ESP32 pipeline: an RFID reader identifies tagged equipment and transmits the ID via ESP-NOW to a receiver ESP32, which matches it to an audio file on an SD card and plays it through a 3D-printed speaker enclosure.",
-        "Ran a blindfolded user study with 6 participants across 6 trials — participants identified 5 chemicals 30.1% faster with the device; iterated on the design based on results, adding tactile attachment points and upgrading to an external speaker module.",
-        "CAD-modeled a custom speaker enclosure in OnShape with honeycomb mesh acoustics, easy-repair access, and structural independence; housed the receiver ESP32, serial MP3 module, and speaker driver inside.",
-        "Device was designed to scale to hundreds of employees across Chimes locations.",
-      ],
-      TECH_STACK: ["ESP32", "RFID", "ESP-NOW", "C++", "Arduino", "OnShape", "CAD", "3D Printing", "Raspberry Pi"],
     },
   },
 
   PROJECTS: {
     "Surgical Phase Recognition for Aneurysm Clipping": {
       SLUG: "surgical-phase-recognition",
+      PAPER: "/posters_papers/cs231n-paper.pdf",
+      POSTER: "/posters_papers/cs231n-poster.pdf",
       VENUE: "Stanford University · CS231N",
       COLLABORATORS: ["Emily Oberleitner", "Nicole Wong", "Dr. Jinendra Ekanayake"],
       DESCRIPTION: [
@@ -121,14 +107,15 @@ export const DATA = {
 
     "EvolveGCN-T: Self-Attention for Dynamic Graph Weight Evolution": {
       SLUG: "evolvegcn-t",
+      PAPER: "/posters_papers/cs229-paper.pdf",
       VENUE: "Stanford University · CS229",
       COLLABORATORS: ["Victoria Yang", "Kaci Morris"],
       DESCRIPTION: [
-        "Proposed EvolveGCN-T, replacing EvolveGCN's GRU-based weight evolution with a Transformer encoder that self-attends over the explicit history of GCN weight matrices — the first method to apply attention directly to evolving weight sequences rather than node embeddings.",
+        "Proposed EvolveGCN-T, replacing EvolveGCN's GRU-based weight evolution with a Transformer encoder that self-attends over the explicit history of GCN weight matrices rather than node embeddings.",
         "Outperformed the matched recurrent baseline (EvolveGCN-O) on Bitcoin-OTC edge classification: micro-F1 0.783 vs. 0.699, a +8.4 point improvement.",
         "Reproduced published EvolveGCN baselines to within ±1% (Elliptic illicit-F1: 0.578 vs. paper's 0.51; SBM MAP: 0.194 vs. 0.199) before introducing the proposed variant.",
-        "Identified optimization instability — not context length — as the primary bottleneck; self-attention showed no consistent benefit from longer history windows, collapsing at h=10.",
-        "Evaluated across 3 benchmark datasets: Elliptic (Bitcoin fraud detection), SBM (synthetic link prediction), and Bitcoin-OTC (signed trust network edge classification).",
+        "Identified optimization instability as the primary bottleneck since self-attention showed no consistent benefit from longer history windows.",
+        "Evaluated across SBM (synthetic link prediction) and Bitcoin-OTC (signed trust network edge classification).",
       ],
       HIGHLIGHTS: [
         "+8.4pt micro-F1 on Bitcoin-OTC",
@@ -143,12 +130,14 @@ export const DATA = {
 
     "JobShield: Detecting Fraudulent Job Postings": {
       SLUG: "jobshield",
+      POSTER: "/posters_papers/jobshield-poster.pdf",
+      VENUE: "Stanford University · Team 19",
       COLLABORATORS: ["Yohannes Aklilu", "Anna Roth", "Anayochukwu Edwin Uche", "Victoria Yang"],
       DESCRIPTION: [
         "Built a full-stack job posting platform with a three-layer fraud detection pipeline targeting real malware attack vectors (OtterCookie, FlexibleFerret) that have been active since 2024.",
         "Hybrid LR→LLM pipeline achieved F1 of 0.913, catching 95/100 fraudulent postings while being 4.5× cheaper than using Gemini alone ($0.077/1k vs $0.35/1k).",
         "Automatic feedback loop injects every moderator decision as a labeled few-shot example into subsequent LLM calls, enabling continuous improvement without retraining.",
-        "Logistic Regression + TF-IDF on posting text plus 8 metadata flags (missing salary, missing requirements, etc.) handles obvious cases in under 0.05ms.",
+        "Logistic Regression + TF-IDF on posting text plus 8 metadata flags (missing salary, missing requirements, etc.) handles most cases in under 0.05ms.",
       ],
       HIGHLIGHTS: [
         "F1: 0.913",
@@ -167,15 +156,13 @@ export const DATA = {
       VENUE: "arXiv:2412.08626 · University of Maryland",
       COLLABORATORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
       DESCRIPTION: [
-        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2). Reviewer considered this to be \"a very significant result.\"",
-        "Co-authored with physicists at the University of Maryland, providing numerical evidence for a conjecture about the computational cost of adiabatic quantum state preparation — a key step in quantum simulation of field theories.",
+        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2).",
+        "Co-authored with physicists at the University of Maryland, providing numerical evidence for a conjecture about the computational cost of adiabatic quantum state preparation.",
         "Demonstrated that the cost proxy Q_D scales as L log L (superlinear) in path length L, confirming the conjecture that adiabatic state preparation is generically more expensive than linear-scaling alternatives as system size grows.",
-        "Proved a no-go theorem showing why wall-clock time is not a valid cost proxy: rescaling the Hamiltonian energy scale changes time but leaves errors unchanged, so a dimensionless quantity Q_D is required.",
-        "Studied random 4×4 Hamiltonians with time-reversal symmetry and non-periodic dynamics across path lengths spanning four orders of magnitude; compared three variants (Q_D1, Q_D2, Q_D1/2) and found consistent superlinear growth.",
+        "Built a simulation pipeline to orchestrate 1k+ runs with strict 10% error gates and validated results across 3 independent proxy formulations and multiple Hamiltonian draws to ensure the scaling behavior was robust.",
       ],
       HIGHLIGHTS: [
         "Accepted: EPJ A",
-        "\"Very significant result\" — reviewer",
         "Q_D ~ L log L confirmed",
       ],
       TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem"],
@@ -202,6 +189,25 @@ export const DATA = {
       ],
       IMAGE: SkygazeImage,
       HIDDEN: true,
+    },
+
+    "Chimes: Assistive Audio ID Device": {
+      SLUG: "chimes",
+      VENUE: "Chimes · Contract",
+      DESCRIPTION: [
+        "Designed an RFID-based audio identification device for visually impaired custodial employees at Chimes, a nonprofit employing people with disabilities — helping workers safely distinguish cleaning chemicals without relying on color or label recognition.",
+        "Built a two-ESP32 pipeline: an RFID reader identifies tagged equipment and transmits the ID via ESP-NOW to a receiver ESP32, which matches it to an audio file on an SD card and plays it through a 3D-printed speaker enclosure.",
+        "Ran a blindfolded user study with 6 participants across 6 trials — participants identified 5 chemicals 30.1% faster with the device; iterated on the design based on results, adding tactile attachment points and upgrading to an external speaker module.",
+        "CAD-modeled a custom speaker enclosure in OnShape with honeycomb mesh acoustics, easy-repair access, and structural independence; housed the receiver ESP32, serial MP3 module, and speaker driver inside.",
+        "Device was designed to scale to hundreds of employees across Chimes locations.",
+      ],
+      HIGHLIGHTS: [
+        "30.1% faster ID",
+        "6-participant user study",
+      ],
+      TECH_STACK: ["ESP32", "RFID", "ESP-NOW", "C++", "Arduino", "OnShape", "CAD", "3D Printing", "Raspberry Pi"],
+      IMAGE: SkygazeImage,
+      HIDDEN: false,
     },
 
   },

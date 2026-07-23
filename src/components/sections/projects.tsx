@@ -1,10 +1,11 @@
-import { ArrowUpRight, FileText } from "lucide-react";
+import { ArrowUpRight, FileText, Presentation } from "lucide-react";
 import type { ProjectTag } from "@/app/data";
 
 interface IProjectData {
   LIVE_PREVIEW?: string;
   GITHUB?: string;
   PAPER?: string;
+  POSTER?: string;
   DESCRIPTION: string[];
   NOTE?: string;
   TECH_STACK: string[];
@@ -85,6 +86,16 @@ export function Projects({
                         rel="noopener noreferrer"
                       >
                         paper <FileText size={14} />
+                      </a>
+                    )}
+                    {value.POSTER && (
+                      <a
+                        className="flex items-center gap-1 hover:text-primary transition-colors"
+                        href={value.POSTER}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        poster <Presentation size={14} />
                       </a>
                     )}
                     {value.GITHUB && (
