@@ -18,12 +18,7 @@ import {
 import DarkVeil from "@/blocks/Backgrounds/DarkVeil/DarkVeil";
 import Iridescence from "@/blocks/Backgrounds/Iridescence/Iridescence";
 
-import TargetCursor from "@/components/ui/target-cursor";
-import useMobileDetection from "@/hooks/use-mobile";
-
 export default function Page() {
-  const checkMobile = useMobileDetection();
-
   return (
     <>
       <div
@@ -103,8 +98,6 @@ export default function Page() {
           {/* <Contact data={DATA.HEADER} /> */}
           <Footer />
         </main>
-
-        {!checkMobile && <TargetCursor spinDuration={2} hideDefaultCursor />}
       </div>
     </>
   );
