@@ -65,7 +65,20 @@ export default async function Page({ params }: PageProps) {
           </p>
         </div>
 
-        <Image src={project[1].IMAGE} alt={project[0]} className="py-4" />
+        {project[1].VIDEO ? (
+          <video
+            src={project[1].VIDEO}
+            poster={project[1].IMAGE.src}
+            aria-label={project[0]}
+            className="my-4 w-full rounded"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        ) : (
+          <Image src={project[1].IMAGE} alt={project[0]} className="py-4" />
+        )}
 
         <div className="grid sm:grid-cols-3 gap-4 items-start">
           <ul className="list-disc pl-3 text-sm text-muted-foreground text-justify sm:col-span-2">

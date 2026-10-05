@@ -1,10 +1,20 @@
-import LibraryImage from "@/assets/frog.jpg";
 import SkygazeImage from "@/assets/frog.jpg";
-import TodoImage from "@/assets/frog.jpg";
+import BlackwellPoster from "@/assets/posters/blackwell.jpg";
+import ChimesPoster from "@/assets/posters/chimes.jpg";
+import EvolveGCNPoster from "@/assets/posters/evolvegcn.jpg";
+import JobShieldPoster from "@/assets/posters/jobshield.jpg";
+import PhaseRecognitionPoster from "@/assets/posters/phase-recognition.jpg";
+import QuantumPathSlide from "../../public/video_clips/quantum_slides/1-path.png";
+import QuantumLeakSlide from "../../public/video_clips/quantum_slides/2-leak.png";
+import QuantumFig1Slide from "../../public/video_clips/quantum_slides/3-fig1.png";
+import QuantumFig2Slide from "../../public/video_clips/quantum_slides/4-fig2.png";
+import QuantumFig3Slide from "../../public/video_clips/quantum_slides/5-fig3.png";
+import SproutImage from "@/assets/sprout-under-construction.jpg";
+import type { ISlide } from "@/components/ui/slideshow";
 import { StaticImageData } from "next/image";
 import { cache } from "react";
 
-export type ProjectTag = "research" | "ml" | "fullstack" | "systems";
+export type ProjectTag = "research" | "ml" | "fullstack" | "systems" | "vr";
 
 export interface IProjectData {
   SLUG: string;
@@ -16,12 +26,47 @@ export interface IProjectData {
   NOTE?: string;
   TECH_STACK: string[];
   IMAGE: StaticImageData;
+  VIDEO?: string;
+  SLIDES?: ISlide[];
   HIDDEN: boolean;
   TAGS?: ProjectTag[];
   HIGHLIGHTS?: string[];
   VENUE?: string;
   COLLABORATORS?: string[];
 }
+
+const QUANTUM_SLIDES: ISlide[] = [
+  {
+    IMAGE: QuantumPathSlide,
+    TITLE: "What a Hamiltonian path looks like",
+    CAPTION:
+      "The four energy levels of one random 4×4 Hamiltonian of the form studied in the paper (Eq. 13): H(t) = (2.1 sin t + sin √2t) H₁ + (2.7 cos t + cos √2t) H₂. Adiabatic state preparation tries to keep the system in the ground state (blue) as H(t) changes, and the gap to the excited states limits how fast that can safely happen. Illustration simulated for this site.",
+  },
+  {
+    IMAGE: QuantumLeakSlide,
+    TITLE: "Moving too fast leaks the state",
+    CAPTION:
+      "The error ε measures how much of the state has leaked out of the ground state. Here the same path is traversed at three speeds: the fast run ends mostly in excited states, while going 12× slower keeps the final error under the 0.1 threshold. The cost of a path is set by how slowly you must go to meet that threshold. Illustration simulated for this site.",
+  },
+  {
+    IMAGE: QuantumFig1Slide,
+    TITLE: "Why study small systems",
+    CAPTION:
+      "Fig. 1 from the paper: at a fixed end time, path length L grows only logarithmically with the Hilbert-space dimension (100 random Hamiltonians per dimension). Long paths are far cheaper to reach by evolving a small system for longer, so the study uses 4×4 Hamiltonians.",
+  },
+  {
+    IMAGE: QuantumFig2Slide,
+    TITLE: "The choice of cost proxy doesn't matter",
+    CAPTION:
+      "Fig. 2: three versions of the cost proxy Q_D (Eq. 12), which weight high- and low-energy excited states differently, give nearly identical results for the same Hamiltonian. The scaling isn't an artifact of how cost is measured.",
+  },
+  {
+    IMAGE: QuantumFig3Slide,
+    TITLE: "Cost grows faster than path length",
+    CAPTION:
+      "Fig. 3, the main result: Q_D/L against path length for four random Hamiltonians at a threshold error of 0.1. Q_D/L keeps rising on a log axis, so the cost of staying adiabatic grows superlinearly, approximately as L log L, as conjectured.",
+  },
+];
 
 export const DATA = {
   HEADER: {
@@ -51,23 +96,26 @@ export const DATA = {
   EXPERIENCE: {
     "The Movement Lab": {
       POSITION: "Student Researcher",
+      COMPANY: "The Movement Lab",
       LOCATION: "Stanford, CA",
       DURATION: "August 2026 – Present",
       ADVISORS: ["Takara Truong", "Dr. Karen Liu"],
       DESCRIPTION: [
-        "Developing an Mjlab RL environment to train an AgiBot to learn door-opening behavior for independent roam.",
-        "Teaching body language to the Fauna Sprout robot for character animation and play.",
+        "Creating Isaac Lab environments to train an AgiBot to open doors, walk, and climb stairs for independent roam.",
+        "Teaching body language to the Fauna Sprout for character animation and play.",
+        "Working with motion capture, LIDAR, depth, and synthetic data.",
       ],
-      TECH_STACK: ["Python", "Mjlab", "MuJoCo", "Reinforcement Learning", "Robotics"],
+      TECH_STACK: ["Python", "Isaac Lab", "Reinforcement Learning", "Motion Capture", "LIDAR", "Robotics"],
+      IMAGE: SproutImage,
     },
 
     "Boeing": {
-      WEBSITE: "https://www.boeing.com",
+      COMPANY: "Boeing",
       POSITION: "Software Engineering Intern",
       LOCATION: "Seattle, WA",
       DURATION: "June 2026 – August 2026",
       DESCRIPTION: [
-        "Validated ERST Pstore kernel crash persistence and designed a live serial logging system for the P-8 aircraft mission computer, allowing system states and kernel logs across 45 systems to be preserved for debugging.",
+        "Worked on operating system design for the P-8 aircraft mission computer. Validated kernel crash persistence and designed a live serial logging system, allowing states and logs across 45 systems to be preserved.",
         "Wired active ports for Lantronix console servers and designed an approach to log each console session with tmux/telnet session management, systemd startup, and logrotate for organized data management.",
         "Prototyped a locally hosted Bonsai LLM workflow for analyzing historical diagnostic logs while keeping critical data internal, saving engineers ~30% time during debugging.",
       ],
@@ -87,10 +135,27 @@ export const DATA = {
         "Coauthored a peer-reviewed publication in European Physical Journal A.",
       ],
       TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem", "Numerical Methods"],
+      SLIDES: QUANTUM_SLIDES,
+      IMAGE: QuantumFig3Slide,
     },
   },
 
   PROJECTS: {
+    "Blackwell: Agentic Surgery Environments": {
+      SLUG: "blackwell",
+      VENUE: "AI Agents Hackathon",
+      DESCRIPTION: [
+        "Co-developed BLACKWELL, an AI-powered VR surgical simulation prototype that converts natural-language requests into interactive practice environments.",
+        "Combined an Anthropic-powered agent, anatomical asset retrieval, and MCP tools to assemble procedure-specific scenes with instructional annotations.",
+        "Enabled real-time interaction on Meta Quest 2 through WebXR and Three.js, backed by NVIDIA Warp and Newton for tissue simulation.",
+      ],
+      TECH_STACK: ["Anthropic API", "MCP", "FastAPI", "Three.js", "WebXR", "WebSockets", "NVIDIA Warp", "Newton", "Firecrawl"],
+      TAGS: ["ml", "vr"] as ProjectTag[],
+      VIDEO: "/video_clips/blackwell-clip.mp4",
+      IMAGE: BlackwellPoster,
+      HIDDEN: false,
+    },
+
     "Surgical Phase Recognition for Aneurysm Clipping": {
       SLUG: "surgical-phase-recognition",
       PAPER: "/posters_papers/cs231n-paper.pdf",
@@ -111,7 +176,8 @@ export const DATA = {
       ],
       TECH_STACK: ["Python", "PyTorch", "ResNet50", "MS-TCN", "Transformer", "Viterbi Decoding", "CVAT", "t-SNE", "Confusion Matrix", "Ablation Study", "GCP"],
       TAGS: ["research", "ml"] as ProjectTag[],
-      IMAGE: SkygazeImage,
+      VIDEO: "/video_clips/231n_phase_recognition_clip.mp4",
+      IMAGE: PhaseRecognitionPoster,
       HIDDEN: false,
     },
 
@@ -134,7 +200,8 @@ export const DATA = {
       ],
       TECH_STACK: ["Python", "PyTorch", "Graph Neural Networks", "Transformer", "EvolveGCN", "Weights & Biases", "Scikit-learn", "Docker", "GCP"],
       TAGS: ["research", "ml"] as ProjectTag[],
-      IMAGE: LibraryImage,
+      VIDEO: "/video_clips/229_evolvegcn_t_clip.mp4",
+      IMAGE: EvolveGCNPoster,
       HIDDEN: false,
     },
 
@@ -152,11 +219,12 @@ export const DATA = {
       HIGHLIGHTS: [
         "F1: 0.913",
         "4.5× cheaper than LLM-only",
-        "95/100 fraud caught",
+        "95% fraud caught",
       ],
       TECH_STACK: ["Next.js", "TypeScript", "Supabase", "Gemini 2.5 Flash", "Scikit-learn", "TF-IDF", "Vercel", "PostgreSQL", "GCP"],
       TAGS: ["fullstack", "ml"] as ProjectTag[],
-      IMAGE: TodoImage,
+      VIDEO: "/video_clips/jobshield-clip.mp4",
+      IMAGE: JobShieldPoster,
       HIDDEN: false,
     },
 
@@ -177,7 +245,8 @@ export const DATA = {
       ],
       TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem"],
       TAGS: ["research"] as ProjectTag[],
-      IMAGE: LibraryImage,
+      SLIDES: QUANTUM_SLIDES,
+      IMAGE: QuantumFig3Slide,
       HIDDEN: true,
     },
 
@@ -216,7 +285,8 @@ export const DATA = {
         "6-participant user study",
       ],
       TECH_STACK: ["ESP32", "RFID", "ESP-NOW", "C++", "Arduino", "OnShape", "CAD", "3D Printing", "Raspberry Pi"],
-      IMAGE: SkygazeImage,
+      VIDEO: "/video_clips/chimes-clip.mp4",
+      IMAGE: ChimesPoster,
       HIDDEN: false,
     },
 

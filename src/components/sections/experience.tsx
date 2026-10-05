@@ -1,13 +1,15 @@
 "use client";
 
 import { extractDomain } from "@/lib/utils";
-import { DetailsDropdown } from "@/components/ui/details-dropdown";
+import { ProjectMedia } from "@/components/ui/project-media";
+import type { ISlide } from "@/components/ui/slideshow";
 import { ArrowUpRight, FileText, Quote } from "lucide-react";
-import Image, { type StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 import { useState } from "react";
 
 interface IExperienceData {
   WEBSITE?: string;
+  COMPANY?: string;
   PAPER?: string;
   CITATION?: string;
   POSITION: string;
@@ -18,6 +20,8 @@ interface IExperienceData {
   COLLABORATORS?: string[];
   ADVISORS?: string[];
   IMAGE?: StaticImageData;
+  VIDEO?: string;
+  SLIDES?: ISlide[];
 }
 
 function CitationTab({ citation }: { citation: string }) {
@@ -63,6 +67,7 @@ export function Experience({
                     </span>
                   </p>
                   <p className="flex items-center gap-3 text-sm">
+                    {value.COMPANY && <span>at {value.COMPANY}</span>}
                     {value.WEBSITE && (
                       <span className="flex items-center">
                         at,{" "}
@@ -103,18 +108,15 @@ export function Experience({
                 </p>
               </div>
 
-              {value.IMAGE && (
-                <div className="relative mt-3 ml-3 rounded overflow-hidden border border-primary/10 aspect-video">
-                  <Image
-                    src={value.IMAGE}
-                    alt={key}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 640px"
-                    placeholder="blur"
-                    className="object-cover"
-                  />
-                </div>
-              )}
+              <ProjectMedia video={value.VIDEO} image={value.IMAGE} slides={value.SLIDES} alt={key} />
+
+              <ul className="space-y-1 mt-3 pl-6 text-muted-foreground text-sm text-justify list-disc">
+                {value.DESCRIPTION.map((desc, index) => (
+                  <li key={index}>
+                    <span>{desc}</span>
+                  </li>
+                ))}
+              </ul>
 
               <ul className="flex flex-wrap items-center gap-2 mt-2 pl-3">
                 {value.TECH_STACK.map((tech, index) => (
@@ -126,8 +128,6 @@ export function Experience({
                   </li>
                 ))}
               </ul>
-
-              <DetailsDropdown items={value.DESCRIPTION} />
 
               {value.CITATION && <CitationTab citation={value.CITATION} />}
             </div>

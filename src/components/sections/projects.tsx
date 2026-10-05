@@ -1,7 +1,9 @@
 import { ArrowUpRight, FileText, Presentation } from "lucide-react";
-import Image, { type StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
 import type { ProjectTag } from "@/app/data";
 import { DetailsDropdown } from "@/components/ui/details-dropdown";
+import { ProjectMedia } from "@/components/ui/project-media";
+import type { ISlide } from "@/components/ui/slideshow";
 
 interface IProjectData {
   LIVE_PREVIEW?: string;
@@ -16,6 +18,8 @@ interface IProjectData {
   COLLABORATORS?: string[];
   TAGS?: ProjectTag[];
   IMAGE?: StaticImageData;
+  VIDEO?: string;
+  SLIDES?: ISlide[];
 }
 
 const TAG_LABELS: Record<ProjectTag, string> = {
@@ -23,6 +27,7 @@ const TAG_LABELS: Record<ProjectTag, string> = {
   ml: "ml",
   fullstack: "full-stack",
   systems: "systems",
+  vr: "vr",
 };
 
 export function Projects({
@@ -128,18 +133,7 @@ export function Projects({
                 )}
               </div>
 
-              {value.IMAGE && (
-                <div className="relative mt-3 ml-3 rounded overflow-hidden border border-primary/10 aspect-video">
-                  <Image
-                    src={value.IMAGE}
-                    alt={key}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 640px"
-                    placeholder="blur"
-                    className="object-cover"
-                  />
-                </div>
-              )}
+              <ProjectMedia video={value.VIDEO} image={value.IMAGE} slides={value.SLIDES} alt={key} />
 
               <ul className="flex flex-wrap items-center gap-2 mt-2 pl-3">
                 {value.TECH_STACK.map((tech, index) => (
