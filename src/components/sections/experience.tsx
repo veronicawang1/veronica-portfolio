@@ -16,6 +16,7 @@ interface IExperienceData {
   DESCRIPTION: string[];
   TECH_STACK: string[];
   COLLABORATORS?: string[];
+  ADVISORS?: string[];
   IMAGE?: StaticImageData;
 }
 
@@ -89,6 +90,11 @@ export function Experience({
                   {value.COLLABORATORS && value.COLLABORATORS.length > 0 && (
                     <p className="text-xs text-muted-foreground/60 mt-0.5">
                       w/ {value.COLLABORATORS.join(", ")}
+                    </p>
+                  )}
+                  {value.ADVISORS && value.ADVISORS.length > 0 && (
+                    <p className="text-xs text-muted-foreground/60 mt-0.5">
+                      advised by {value.ADVISORS.join(", ")}
                     </p>
                   )}
                 </div>

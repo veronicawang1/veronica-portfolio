@@ -27,7 +27,7 @@ export const DATA = {
   HEADER: {
     NAME: "Veronica",
     HEADLINE: "",
-    RESUME: "/resume/resume.pdf",
+    RESUME: "https://docs.google.com/document/d/1Ld-0XXw_m3DoWbWHBt-_Nu_pYI7akThw6MINYp9Td3E/edit",
     EMAIL: "mailto:veronicawang2007@gmail.com",
     GITHUB: "https://github.com/veronicawang1",
     LINKEDIN: "https://www.linkedin.com/in/veronica-wang1/",
@@ -49,30 +49,42 @@ export const DATA = {
   ],
 
   EXPERIENCE: {
+    "The Movement Lab": {
+      POSITION: "Student Researcher",
+      LOCATION: "Stanford, CA",
+      DURATION: "August 2026 – Present",
+      ADVISORS: ["Takara Truong", "Dr. Karen Liu"],
+      DESCRIPTION: [
+        "Developing an Mjlab RL environment to train an AgiBot to learn door-opening behavior for independent roam.",
+        "Teaching body language to the Fauna Sprout robot for character animation and play.",
+      ],
+      TECH_STACK: ["Python", "Mjlab", "MuJoCo", "Reinforcement Learning", "Robotics"],
+    },
+
     "Boeing": {
       WEBSITE: "https://www.boeing.com",
       POSITION: "Software Engineering Intern",
       LOCATION: "Seattle, WA",
       DURATION: "June 2026 – August 2026",
       DESCRIPTION: [
-        "Implemented ramoops kernel crash persistence and designed a live serial logging system for the P-8 aircraft mission computer, allowing system states and kernel logs across 45 systems to be preserved for debugging.",
-        "Worked with hardware to identify active console ports and evaluated a screen based approach to log each console session with tmux/telnet session management, systemd startup, and logrotate retention.",
+        "Validated ERST Pstore kernel crash persistence and designed a live serial logging system for the P-8 aircraft mission computer, allowing system states and kernel logs across 45 systems to be preserved for debugging.",
+        "Wired active ports for Lantronix console servers and designed an approach to log each console session with tmux/telnet session management, systemd startup, and logrotate for organized data management.",
+        "Prototyped a locally hosted Bonsai LLM workflow for analyzing historical diagnostic logs while keeping critical data internal, saving engineers ~30% time during debugging.",
       ],
-      TECH_STACK: ["C", "C++", "Python", "Bash", "Perl", "Mission Systems", "Virtual Integration"],
+      TECH_STACK: ["C", "C++", "Python", "Bash", "Perl", "Linux", "Local LLMs", "Mission Systems", "Virtual Integration"],
     },
 
     "Quantum Computing Research": {
       PAPER: "https://link.springer.com/article/10.1140/epja/s10050-026-01879-4?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=oa_20260623&utm_content=10.1140/epja/s10050-026-01879-4",
       CITATION: "Cohen, T.D., Oh, H. & Wang, V. Numerical study of computational cost of maintaining adiabaticity for long paths. Eur. Phys. J. A 62, 122 (2026). https://doi.org/10.1140/epja/s10050-026-01879-4",
-      POSITION: "Research Author",
+      POSITION: "Research Intern",
       LOCATION: "College Park, MD",
-      DURATION: "May 2024 – October 2024",
-      COLLABORATORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
+      DURATION: "May 2024 – August 2024",
+      ADVISORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
       DESCRIPTION: [
-        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2).",
-        "Co-authored with physicists at the University of Maryland, providing numerical evidence for a conjecture about the computational cost of adiabatic quantum state preparation.",
-        "Demonstrated that the cost proxy Q_D scales as L log L (superlinear) in path length L, confirming the conjecture that adiabatic state preparation is generically more expensive than linear-scaling alternatives as system size grows.",
-        "Built a simulation pipeline to orchestrate 1k+ runs with strict 10% error gates and validated results across 3 independent proxy formulations and multiple Hamiltonian draws to ensure the scaling behavior was robust.",
+        "Modeled random 4x4 Hamiltonian paths and numerically solved the time-dependent Schrödinger equation to characterize the computational cost of maintaining adiabaticity, finding O(L log L) scaling w.r.t. path length.",
+        "Built a simulation pipeline in Python for 1k+ runs with 10% error gates and cross-validated results across 3 independent cost proxies and Hamiltonian draws to ensure the scaling behavior was generalizable.",
+        "Coauthored a peer-reviewed publication in European Physical Journal A.",
       ],
       TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem", "Numerical Methods"],
     },
@@ -280,6 +292,12 @@ export const DATA = {
 
   ART: {
     PIECES: [
+      {
+        title: "Swan",
+        medium: "3D render, Blender",
+        year: "2026",
+        image: "/art/final.png",
+      },
       {
         title: "Figure",
         medium: "Oil on canvas",
