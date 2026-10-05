@@ -339,6 +339,8 @@ export function CollageBoard({ onStart }: { onStart?: () => void }) {
                       transformOrigin: photo.position,
                     }}
                     priority={i < 6}
+                    // The intro waits for every photo, so none of them may lazy-load.
+                    loading={i < 6 ? undefined : "eager"}
                     onLoad={() => setLoaded((n) => n + 1)}
                   />
                 </div>
