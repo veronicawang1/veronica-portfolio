@@ -14,7 +14,7 @@ import type { ISlide } from "@/components/ui/slideshow";
 import { StaticImageData } from "next/image";
 import { cache } from "react";
 
-export type ProjectTag = "research" | "ml" | "fullstack" | "systems" | "vr";
+export type ProjectTag = "research" | "ml" | "fullstack" | "systems" | "vr" | "engineering" | "microcontroller";
 
 export interface IProjectData {
   SLUG: string;
@@ -272,7 +272,8 @@ export const DATA = {
 
     "Chimes: Assistive Audio ID Device": {
       SLUG: "chimes",
-      VENUE: "Chimes · Contract",
+      VENUE: "Chimes · Volunteering",
+      TAGS: ["engineering", "microcontroller"] as ProjectTag[],
       DESCRIPTION: [
         "Designed an RFID-based audio identification device for visually impaired custodial employees at Chimes, a nonprofit employing people with disabilities — helping workers safely distinguish cleaning chemicals without relying on color or label recognition.",
         "Built a two-ESP32 pipeline: an RFID reader identifies tagged equipment and transmits the ID via ESP-NOW to a receiver ESP32, which matches it to an audio file on an SD card and plays it through a 3D-printed speaker enclosure.",
@@ -437,7 +438,7 @@ export const DATA = {
       },
       {
         title: "Peonies",
-        medium: "Oil on canvas",
+        medium: "Acrylic on canvas",
         year: "2022",
         image: "/art/peonies-jar.jpg",
       },

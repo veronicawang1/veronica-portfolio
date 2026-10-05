@@ -97,3 +97,15 @@ span,
 li {
   transition: all 1s var(--elastic-out);
 }
+
+/* String-light twinkle on the collage board */
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .twinkle { animation: none; }
+}
