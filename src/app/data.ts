@@ -35,9 +35,7 @@ export const DATA = {
 
   ABOUT_ME: {
     INTRO:
-      "Hi! I'm Veronica, a CS student at Stanford. I'm drawn to problems relating to visual perception stemming from my interests in computer vision and design. Currently I'm especially interested in using diffusion and generative AI to build realistic world models to use in fields like robotic training, art, games, and HCI.",
-    EXPERTISE:
-      "I've done research in surgical video understanding (phase recognition with transformers), quantum computing (adiabatic state preparation scaling), and dynamic graph learning. Outside of research I build full-stack products and spend time on graphic design and studio art. Currently mainly working in C++ and learning 3D rendering plus AI/ML.",
+      "Hi! I'm Veronica, a CS student at Stanford. I'm drawn to problems relating to visual perception, stemming from my interests in both computer vision and art. I'm especially interested in using diffusion and generative AI to build realistic world models to use in fields like robotic training, art, games, and HCI. I'm currently conducting robotics research at The Movement Lab at Stanford, where I'm advised by Takara Truong and Dr. Karen Liu. I've also conducted research for surgical video understanding (with Dr. Jinendra Ekanayake from Stanford School of Medicine) and quantum computing (with Dr. Thomas Cohen and Hyunwoo Oh at the University of Maryland). In the summer of 2026, I did an internship at Boeing where I worked on operating system design for the P-8 aircraft and helped deploy local LLMs. Outside of research, I love spending time on graphic design and studio art.",
     BLOG: "",
   },
 
