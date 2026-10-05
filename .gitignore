@@ -48,3 +48,6 @@ pnpm-lock.yaml
 bun.lock
 # local resume sources (raw recordings, PDFs, screenshots)
 /public/resume/
+
+# raw personal photos (optimized copies used on the site live in /public/collage/)
+/public/art/me/
