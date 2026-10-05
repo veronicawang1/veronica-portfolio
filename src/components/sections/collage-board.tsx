@@ -59,10 +59,10 @@ export const PHOTOS = ALTS.map((alt, i) => ({
 export const LAYOUTS = {
   wide: [
     { left: 8.77, top: 5.02, width: 8.9, rotate: -8.4 },
-    { left: 32.41, top: 27.61, width: 11.45, rotate: -10.3 },
+    { left: 20.05, top: 76.59, width: 11.45, rotate: -10.3 },
     { left: 57.18, top: 55.37, width: 11.11, rotate: -3.2 },
     { left: 41.69, top: 57.8, width: 9.67, rotate: 0.2 },
-    { left: 17.2, top: 76.89, width: 11.05, rotate: -1.6 },
+    { left: 32.61, top: 27.91, width: 11.05, rotate: -1.6 },
     { left: 86.2, top: 59.31, width: 9.22, rotate: -9.8 },
     { left: 41.07, top: 5.23, width: 10.77, rotate: 7.8 },
     { left: 37.65, top: 77.85, width: 11.38, rotate: 10.7 },
@@ -85,10 +85,10 @@ export const LAYOUTS = {
   ],
   narrow: [
     { left: 72.32, top: 21.2, width: 12.67, rotate: 11.1 },
-    { left: 37.87, top: 73.73, width: 14.51, rotate: 4.9 },
+    { left: 80.84, top: 3.31, width: 14.51, rotate: 4.9 },
     { left: 65.65, top: 88.59, width: 14.34, rotate: -6.1 },
     { left: 10.13, top: 60.15, width: 18.0, rotate: -7.0 },
-    { left: 78.16, top: 1.48, width: 19.88, rotate: -1.0 },
+    { left: 36.98, top: 72.58, width: 17.89, rotate: -1.0 },
     { left: 41.31, top: 85.75, width: 15.81, rotate: -0.1 },
     { left: 11.39, top: 46.42, width: 14.77, rotate: 7.9 },
     { left: 48.62, top: 17.25, width: 14.08, rotate: -5.6 },

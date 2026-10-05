@@ -234,6 +234,8 @@ export default function Galaxy({
       gl.clearColor(0, 0, 0, 1);
     }
 
+    // Assigned below; declared first because resize() checks it before it exists.
+    // eslint-disable-next-line prefer-const
     let program: Program;
 
     function resize() {
