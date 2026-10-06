@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const ALTS = [
   "at the Palace of Fine Arts",
@@ -118,10 +118,10 @@ export const LIGHTS_NARROW = [[0.0, 0], [11.11, 0], [22.22, 0], [33.33, 0], [44.
 // "Seaglass kiss" palette.
 const PIN_COLORS = ["#E8B86C", "#FDD6CF", "#FDADA4", "#A880A0", "#619394"];
 
-export const BOARD_IN = 0.45; // board fades in
-export const PHOTO_STAGGER = 0.055;
-export const FLIGHT = 0.75;
-export const PIN_TIME = 0.4;
+export const BOARD_IN = 0.3; // board fades in
+export const PHOTO_STAGGER = 0.035;
+export const FLIGHT = 0.6;
+export const PIN_TIME = 0.32;
 // When the last pin is stuck in.
 export const PINNED = BOARD_IN + PHOTO_STAGGER * (PHOTOS.length - 1) + FLIGHT + PIN_TIME;
 export const BOARD_FULL = 0.72; // a touch see-through so it isn't glaring on the dark page
@@ -230,14 +230,51 @@ function StringLights({
   );
 }
 
-export function CollageBoard({ onStart }: { onStart?: () => void }) {
-  const reduce = Boolean(useReducedMotion());
-  const [loaded, setLoaded] = useState(0);
+// True on a repeat visit in this tab (flag set before paint by the script in layout.tsx)
+// or when the visitor prefers reduced motion: the board then appears already finished.
+function skipIntro() {
+  if (typeof document === "undefined") return false;
+  return (
+    document.documentElement.classList.contains("intro-seen") ||
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
+export function CollageBoard() {
+  const instant = useRef(skipIntro());
+  const t0 = useRef<number | null>(null);
   const [play, setPlay] = useState(false);
   const [travel, setTravel] = useState(1400);
   const [narrow, setNarrow] = useState(false);
-  const onStartRef = useRef(onStart);
-  onStartRef.current = onStart;
+  // Per photo: seconds until it flies in, or null while its image is still loading.
+  const [delays, setDelays] = useState<(number | null)[]>(() => PHOTOS.map(() => null));
+
+  // Each photo flies in as soon as its own image is ready, at its slot in the
+  // sequence if that's still ahead, otherwise right away.
+  const markReady = useCallback((i: number) => {
+    setDelays((d) => {
+      if (d[i] !== null) return d;
+      const elapsed = t0.current === null ? 0 : (performance.now() - t0.current) / 1000;
+      const next = [...d];
+      next[i] = instant.current ? 0 : Math.max(0, BOARD_IN + i * PHOTO_STAGGER - elapsed);
+      return next;
+    });
+  }, []);
+
+  // Start immediately; nothing waits for the photos as a group.
+  useLayoutEffect(() => {
+    t0.current = performance.now();
+    setTravel(Math.max(window.innerWidth, window.innerHeight) * 1.1);
+    setPlay(true);
+    try {
+      sessionStorage.setItem("introSeen", "1");
+    } catch {
+      // storage blocked (private mode): the intro just plays every time
+    }
+    // Never leave a photo off the board if its image is slow or fails.
+    const t = window.setTimeout(() => PHOTOS.forEach((_, i) => markReady(i)), 4000);
+    return () => window.clearTimeout(t);
+  }, [markReady]);
 
   // Tall layout for phones (matches the board's sm: breakpoint).
   useEffect(() => {
@@ -248,19 +285,7 @@ export function CollageBoard({ onStart }: { onStart?: () => void }) {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // Start once the photos have loaded, or after a short timeout on slow connections.
-  useEffect(() => {
-    if (play) return;
-    const go = () => {
-      setTravel(Math.max(window.innerWidth, window.innerHeight) * 1.1);
-      setPlay(true);
-      onStartRef.current?.();
-    };
-    if (reduce || loaded >= PHOTOS.length) return go();
-    const t = window.setTimeout(go, 2500);
-    return () => window.clearTimeout(t);
-  }, [loaded, reduce, play]);
-
+  const skip = instant.current;
   const layout = narrow ? LAYOUTS.narrow : LAYOUTS.wide;
   const total = PINNED + 0.9;
 
@@ -276,9 +301,11 @@ export function CollageBoard({ onStart }: { onStart?: () => void }) {
           backgroundPosition: "0 0, 3px 5px",
         }}
         initial={{ opacity: 0, scale: 0.97 }}
-        animate={play ? { opacity: [0, BOARD_FULL, BOARD_FULL, BOARD_DIM], scale: 1 } : undefined}
+        animate={
+          play ? (skip ? { opacity: BOARD_DIM, scale: 1 } : { opacity: [0, BOARD_FULL, BOARD_FULL, BOARD_DIM], scale: 1 }) : undefined
+        }
         transition={
-          reduce
+          skip
             ? { duration: 0 }
             : {
                 // Fade in, hold while photos are pinned, then dim behind the greeting.
@@ -291,7 +318,8 @@ export function CollageBoard({ onStart }: { onStart?: () => void }) {
           const spot = layout[i];
           // Spread the entry directions around the circle (golden angle).
           const angle = (i * 137.5 * Math.PI) / 180;
-          const delay = BOARD_IN + i * PHOTO_STAGGER;
+          const delay = delays[i] ?? 0;
+          const ready = play && delays[i] !== null;
           const pinAt = delay + FLIGHT;
           const spin = (i % 2 === 0 ? 1 : -1) * (25 + ((i * 7) % 20));
 
@@ -313,9 +341,9 @@ export function CollageBoard({ onStart }: { onStart?: () => void }) {
                 rotate: spot.rotate + spin,
                 opacity: 0,
               }}
-              animate={play ? { x: 0, y: 0, scale: 1, rotate: spot.rotate, opacity: 1 } : undefined}
+              animate={ready ? { x: 0, y: 0, scale: 1, rotate: spot.rotate, opacity: 1 } : undefined}
               transition={
-                reduce
+                skip
                   ? { duration: 0 }
                   : { delay, duration: FLIGHT, ease: [0.16, 1, 0.3, 1], opacity: { delay, duration: 0.2 } }
               }
@@ -323,7 +351,7 @@ export function CollageBoard({ onStart }: { onStart?: () => void }) {
               {/* Dips slightly when its pin goes in. */}
               <motion.div
                 className="bg-white shadow-[0_3px_8px_rgba(60,40,10,0.35)] p-[6%] pb-[16%]"
-                animate={play && !reduce ? { scale: [1, 1, 0.95, 1] } : undefined}
+                animate={ready && !skip ? { scale: [1, 1, 0.95, 1] } : undefined}
                 transition={{ delay: pinAt, duration: PIN_TIME + 0.15, times: [0, 0.62, 0.78, 1] }}
               >
                 <div className="relative w-full overflow-hidden" style={{ aspectRatio: photo.aspect }}>
@@ -339,19 +367,20 @@ export function CollageBoard({ onStart }: { onStart?: () => void }) {
                       transformOrigin: photo.position,
                     }}
                     priority={i < 6}
-                    // The intro waits for every photo, so none of them may lazy-load.
+                    // Load every photo right away rather than when scrolled to.
                     loading={i < 6 ? undefined : "eager"}
-                    onLoad={() => setLoaded((n) => n + 1)}
+                    onLoad={() => markReady(i)}
+                    onError={() => markReady(i)}
                   />
                 </div>
               </motion.div>
-              <Pin color={PIN_COLORS[i % PIN_COLORS.length]} delay={pinAt} play={play} reduce={reduce} />
+              <Pin color={PIN_COLORS[i % PIN_COLORS.length]} delay={pinAt} play={ready} reduce={skip} />
             </motion.div>
           );
         })}
       </motion.div>
 
-      <StringLights points={narrow ? LIGHTS_NARROW : LIGHTS_WIDE} play={play} reduce={reduce} />
+      <StringLights points={narrow ? LIGHTS_NARROW : LIGHTS_WIDE} play={play} reduce={skip} />
     </div>
   );
 }

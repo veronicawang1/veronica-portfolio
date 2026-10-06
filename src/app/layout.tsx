@@ -73,6 +73,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${outfit.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Runs before first paint: marks a repeat visit in this tab so the landing intro is skipped. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("introSeen"))document.documentElement.classList.add("intro-seen")}catch(e){}`,
+          }}
+        />
+      </head>
       <body
         className={`${outfit.className} w-screen min-h-screen m-0 p-0 overflow-x-hidden`}
       >
