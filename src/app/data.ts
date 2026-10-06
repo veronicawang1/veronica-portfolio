@@ -94,6 +94,17 @@ export const DATA = {
   ],
 
   EXPERIENCE: {
+    "Stanford Graduate School of Education": {
+      POSITION: "VR Developer",
+      COMPANY: "Stanford Graduate School of Education",
+      LOCATION: "Stanford, CA",
+      DURATION: "September 2026 – Present",
+      DESCRIPTION: [
+        "Developing virtual experiences with Unity and Blender MCPs for the Futuring for Equity Lab on the Quest 3.",
+      ],
+      TECH_STACK: ["Unity", "Blender", "MCP", "Meta Quest 3", "VR"],
+    },
+
     "The Movement Lab": {
       POSITION: "Student Researcher",
       COMPANY: "The Movement Lab",
