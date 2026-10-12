@@ -65,7 +65,7 @@ export function Projects({
                     ))}
                   </div>
 
-                  <p className="text-primary/90 text-lg leading-snug">{key}</p>
+                  <p className="text-[#fff3cc] text-lg leading-snug">{key}</p>
 
                   {value.VENUE && (
                     <p className="text-xs text-muted-foreground/70 mt-0.5">{value.VENUE}</p>

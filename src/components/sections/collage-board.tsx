@@ -59,26 +59,26 @@ export const PHOTOS = ALTS.map((alt, i) => ({
 export const LAYOUTS = {
   wide: [
     { left: 8.77, top: 5.02, width: 8.9, rotate: -8.4 },
-    { left: 20.05, top: 76.59, width: 11.45, rotate: -10.3 },
+    { left: 20.05, top: 74.09, width: 11.45, rotate: -10.3 },
     { left: 57.18, top: 55.37, width: 11.11, rotate: -3.2 },
     { left: 41.69, top: 57.8, width: 9.67, rotate: 0.2 },
     { left: 32.61, top: 27.91, width: 11.05, rotate: -1.6 },
     { left: 86.2, top: 59.31, width: 9.22, rotate: -9.8 },
     { left: 41.07, top: 5.23, width: 10.77, rotate: 7.8 },
-    { left: 37.65, top: 77.85, width: 11.38, rotate: 10.7 },
+    { left: 37.65, top: 75.35, width: 11.38, rotate: 10.7 },
     { left: 86.97, top: 7.42, width: 11.23, rotate: -2.5 },
     { left: 62.65, top: 25.88, width: 12.43, rotate: -10.9 },
     { left: 2.2, top: 23.85, width: 12.08, rotate: -5.0 },
     { left: 71.51, top: 49.82, width: 9.93, rotate: -9.2 },
-    { left: 71.23, top: 71.13, width: 10.43, rotate: 7.6 },
+    { left: 71.23, top: 68.63, width: 10.43, rotate: 7.6 },
     { left: 59.45, top: 5.46, width: 10.04, rotate: 2.0 },
-    { left: 84.57, top: 76.4, width: 11.42, rotate: -3.1 },
+    { left: 84.57, top: 75.4, width: 11.42, rotate: -3.1 },
     { left: 85.12, top: 37.56, width: 11.14, rotate: -10.5 },
     { left: 72.13, top: 3.77, width: 12.1, rotate: -7.1 },
-    { left: 56.03, top: 80.28, width: 11.54, rotate: -1.7 },
+    { left: 56.03, top: 77.78, width: 11.54, rotate: -1.7 },
     { left: 48.02, top: 26.16, width: 10.44, rotate: 2.1 },
     { left: 22.09, top: 4.33, width: 10.86, rotate: -4.8 },
-    { left: 3.7, top: 78.84, width: 11.88, rotate: 4.8 },
+    { left: 3.7, top: 76.34, width: 11.88, rotate: 4.8 },
     { left: 17.74, top: 28.27, width: 10.23, rotate: 1.8 },
     { left: 3.83, top: 51.06, width: 11.08, rotate: 9.0 },
     { left: 20.26, top: 49.6, width: 10.65, rotate: 10.6 },
@@ -283,7 +283,8 @@ export function CollageBoard() {
   return (
     <div className="relative">
       <motion.div
-        className="relative shadow-[0_20px_60px_rgba(0,0,0,0.5)] rounded-xl w-full aspect-[0.62] sm:aspect-[1.36]"
+        // On wider screens, 50px shorter than its 1.36 shape (padding % is of the width).
+        className="relative shadow-[0_20px_60px_rgba(0,0,0,0.5)] rounded-xl w-full aspect-[0.62] sm:aspect-auto sm:h-0 sm:pb-[calc(100%/1.36_-_50px)]"
         style={{
           backgroundColor: "#efe7d8",
           backgroundImage:

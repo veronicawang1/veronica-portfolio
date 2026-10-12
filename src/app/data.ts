@@ -87,7 +87,7 @@ export const DATA = {
   EDUCATION: [
     {
       SCHOOL: "Stanford University",
-      DEGREE: "B.S. Computer Science",
+      DEGREE: "B.S. Computer Science, AI Track",
       LOCATION: "Stanford, CA",
       DURATION: "2025 – 2029",
     },
@@ -106,7 +106,7 @@ export const DATA = {
     },
 
     "Stanford Graduate School of Education": {
-      POSITION: "VR Developer",
+      POSITION: "VR Software Engineer",
       COMPANY: "Stanford Graduate School of Education",
       LOCATION: "Stanford, CA",
       DURATION: "September 2026 – Present",
@@ -148,6 +148,7 @@ export const DATA = {
       PAPER: "https://link.springer.com/article/10.1140/epja/s10050-026-01879-4?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=oa_20260623&utm_content=10.1140/epja/s10050-026-01879-4",
       CITATION: "Cohen, T.D., Oh, H. & Wang, V. Numerical study of computational cost of maintaining adiabaticity for long paths. Eur. Phys. J. A 62, 122 (2026). https://doi.org/10.1140/epja/s10050-026-01879-4",
       POSITION: "Research Intern",
+      COMPANY: "The University of Maryland",
       LOCATION: "College Park, MD",
       DURATION: "May 2024 – August 2024",
       ADVISORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],

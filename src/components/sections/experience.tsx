@@ -60,36 +60,30 @@ export function Experience({
             <div className="pl-4 border-muted-foreground hover:border-primary border-l size-full transition-all duration-300">
               <div className="flex sm:flex-row flex-col justify-between items-start">
                 <div>
-                  <p className="text-primary/90 text-lg">
+                  <p className="text-[#fff3cc] text-lg">
                     {value.POSITION}{" "}
-                    <span className="inline-block bg-secondary max-sm:mb-2 ml-2 px-2 py-1 rounded text-xs">
+                    <span className="inline-block bg-secondary max-sm:mb-2 ml-2 px-2 py-1 rounded text-muted-foreground text-xs">
                       {value.LOCATION}
                     </span>
                   </p>
-                  <p className="flex items-center gap-3 text-sm">
-                    {value.COMPANY && <span>at {value.COMPANY}</span>}
+                  <p className="flex items-center gap-3 text-muted-foreground text-sm">
+                    {value.COMPANY && (
+                      <span>
+                        at <span className="font-semibold text-primary/90">{value.COMPANY}</span>
+                      </span>
+                    )}
                     {value.WEBSITE && (
                       <span className="flex items-center">
                         at,{" "}
                         <a
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1 ml-1"
+                          className="flex items-center gap-1 ml-1 font-semibold text-primary/90"
                           href={value.WEBSITE}
                         >
                           {extractDomain(value.WEBSITE)} <ArrowUpRight size={18} />
                         </a>
                       </span>
-                    )}
-                    {value.PAPER && (
-                      <a
-                        className="flex items-center gap-1 hover:text-primary transition-colors"
-                        href={value.PAPER}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        publication <FileText size={14} />
-                      </a>
                     )}
                   </p>
                   {value.COLLABORATORS && value.COLLABORATORS.length > 0 && (
@@ -101,6 +95,16 @@ export function Experience({
                     <p className="text-xs text-muted-foreground/60 mt-0.5">
                       advised by {value.ADVISORS.join(", ")}
                     </p>
+                  )}
+                  {value.PAPER && (
+                    <a
+                      className="flex items-center gap-1 mt-1 w-fit text-muted-foreground hover:text-primary text-sm transition-colors"
+                      href={value.PAPER}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      publication <FileText size={14} />
+                    </a>
                   )}
                 </div>
                 <p className="text-muted-foreground text-sm">

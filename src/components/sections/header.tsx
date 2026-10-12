@@ -68,7 +68,7 @@ export function Header({ data }: { data: Record<string, string> }) {
   return (
     // Spans the full window width and clips sideways, so photos flying in from
     // off screen never make the page scroll horizontally.
-    <section className="left-1/2 relative flex justify-center pt-12 w-screen overflow-x-clip -translate-x-1/2">
+    <section className="left-1/2 relative flex justify-center pt-[23px] w-screen overflow-x-clip -translate-x-1/2">
       {/* Grows past the page column on wide windows, but stays within the window's width and height. */}
       <div className="relative w-[min(1080px,calc(100vw-32px),calc((100svh-130px)*1.36))] shrink-0">
         <CollageBoard />
