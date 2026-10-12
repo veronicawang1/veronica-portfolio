@@ -94,6 +94,17 @@ export const DATA = {
   ],
 
   EXPERIENCE: {
+    "Microsoft": {
+      POSITION: "Copilot Innovation Fellow",
+      COMPANY: "Microsoft",
+      LOCATION: "Remote",
+      DURATION: "October 2026 – Present",
+      DESCRIPTION: [
+        "Directly working with product and research teams to test and launch early stage AI products.",
+      ],
+      TECH_STACK: ["Microsoft Copilot", "AI", "LLMs", "Product Testing"],
+    },
+
     "Stanford Graduate School of Education": {
       POSITION: "VR Developer",
       COMPANY: "Stanford Graduate School of Education",

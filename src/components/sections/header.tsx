@@ -2,15 +2,17 @@
 
 import { Github, Linkedin, Mail } from "lucide-react";
 import { MovingElement } from "../navbar";
+import { AsciiFont, BLOCK, SMALL } from "./ascii-font";
 import { CollageBoard } from "./collage-board";
 
 const LETTER_STAGGER = 0.03;
 const TEXT_START = 0.15;
 
 // Drops text in one letter at a time with CSS, so it plays as soon as the page paints.
-function LetterDrop({ text, start }: { text: string; start: number }) {
+// Each letter is drawn as ASCII art; characters the font lacks show as themselves.
+function LetterDrop({ text, font, start }: { text: string; font: AsciiFont; start: number }) {
   return (
-    <span aria-label={text}>
+    <span aria-label={text} className="inline-flex items-start font-mono leading-none whitespace-pre">
       {Array.from(text).map((ch, i) => (
         <span
           key={i}
@@ -18,15 +20,21 @@ function LetterDrop({ text, start }: { text: string; start: number }) {
           className="letter-drop"
           style={{ animationDelay: `${(start + i * LETTER_STAGGER).toFixed(3)}s` }}
         >
-          {ch}
+          {font.glyphs[ch] ?? (
+            <span className="inline-flex items-center px-[0.5ch]" style={{ height: `${font.rows}em` }}>
+              <span className="font-outfit" style={{ fontSize: `${font.rows * 0.6}em` }}>
+                {ch}
+              </span>
+            </span>
+          )}
         </span>
       ))}
     </span>
   );
 }
 
-const GREETING = "hi there👋, I'm";
-const NAME = "Veronica";
+const GREETING = "hi there! i'm";
+const NAME = "veronica";
 
 export function Header({ data }: { data: Record<string, string> }) {
   const handleChange = (url: string) => {
@@ -73,12 +81,12 @@ export function Header({ data }: { data: Record<string, string> }) {
             className="-z-10 absolute w-[min(560px,90%)] h-[min(300px,60%)]"
             style={{ background: "radial-gradient(ellipse at center, rgba(8,8,14,0.6) 0%, rgba(8,8,14,0.35) 45%, transparent 72%)" }}
           />
-          <p className="font-normal text-primary/85 text-base">
-            <LetterDrop text={GREETING} start={TEXT_START} />
+          <p className="text-[min(10px,1.75vw)] text-primary/85">
+            <LetterDrop text={GREETING} font={SMALL} start={TEXT_START} />
           </p>
 
-          <h1 className="font-semibold text-[clamp(2.4rem,7vw,4.6rem)] leading-tight">
-            <LetterDrop text={NAME} start={nameStart} />
+          <h1 className="mt-[5px] text-[min(14px,2.3vw)]">
+            <LetterDrop text={NAME} font={BLOCK} start={nameStart} />
           </h1>
           {data.HEADLINE && (
             <h2 className="mt-1 font-normal text-primary/90 text-base">{data.HEADLINE}</h2>

@@ -117,7 +117,7 @@ html {
 
 /* Landing greeting: pure CSS so it plays the moment the page paints, without waiting for JS. */
 @keyframes letter-drop {
-  from { opacity: 0; transform: translateY(-0.9em) rotate(-8deg); }
+  from { opacity: 0; transform: translateY(-90%) rotate(-8deg); }
   to { opacity: 1; transform: none; }
 }
 @keyframes drop-in {
@@ -132,11 +132,7 @@ html {
 .drop-in {
   animation: drop-in 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) both;
 }
-/* Repeat visits in the same tab (flag set by an inline script in <head>) and reduced motion skip it. */
-.intro-seen .letter-drop,
-.intro-seen .drop-in {
-  animation: none;
-}
+/* Reduced motion skips it. */
 @media (prefers-reduced-motion: reduce) {
   .letter-drop,
   .drop-in {

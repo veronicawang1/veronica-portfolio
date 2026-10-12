@@ -124,7 +124,7 @@ export const FLIGHT = 0.6;
 export const PIN_TIME = 0.32;
 // When the last pin is stuck in.
 export const PINNED = BOARD_IN + PHOTO_STAGGER * (PHOTOS.length - 1) + FLIGHT + PIN_TIME;
-export const BOARD_FULL = 0.72; // a touch see-through so it isn't glaring on the dark page
+export const BOARD_FULL = 0.5; // a touch see-through so it isn't glaring on the dark page
 export const BOARD_DIM = 0.32;
 
 // Small deterministic pseudo-random numbers in [0, 1) for twinkle timing.
@@ -230,14 +230,10 @@ function StringLights({
   );
 }
 
-// True on a repeat visit in this tab (flag set before paint by the script in layout.tsx)
-// or when the visitor prefers reduced motion: the board then appears already finished.
+// True when the visitor prefers reduced motion: the board then appears already finished.
 function skipIntro() {
-  if (typeof document === "undefined") return false;
-  return (
-    document.documentElement.classList.contains("intro-seen") ||
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
 export function CollageBoard() {
@@ -266,11 +262,6 @@ export function CollageBoard() {
     t0.current = performance.now();
     setTravel(Math.max(window.innerWidth, window.innerHeight) * 1.1);
     setPlay(true);
-    try {
-      sessionStorage.setItem("introSeen", "1");
-    } catch {
-      // storage blocked (private mode): the intro just plays every time
-    }
     // Never leave a photo off the board if its image is slow or fails.
     const t = window.setTimeout(() => PHOTOS.forEach((_, i) => markReady(i)), 4000);
     return () => window.clearTimeout(t);
