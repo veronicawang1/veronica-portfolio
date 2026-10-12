@@ -1,4 +1,4 @@
-/* Pixel art for the golden retriever, its toys and the toy basket.
+/* Pixel art for the golden retriever, its toys, the toy basket and its house.
    Each character is one pixel; "." is transparent. The dog faces left.
    The sitting pose is traced from the reference sprite; the other poses are
    drawn to match it. */
@@ -30,6 +30,17 @@ export const PALETTE: Record<string, string> = {
   n: "#5c3a24", // inside
   W: "#c08a52", // weave
   w: "#a8723f", // weave shade
+  // house
+  k: "#1c140e", // outline + sign lettering
+  o: "#cd894a", // roof
+  p: "#eab686", // roof light
+  q: "#9b5a19", // roof shade
+  u: "#f1e3ad", // siding
+  v: "#faeec8", // siding light
+  x: "#d4c88e", // siding shade
+  z: "#252525", // doorway
+  m: "#c08a52", // sign
+  M: "#e0b47c", // sign light
 };
 
 export const SPRITE_COLS = 24;
@@ -146,6 +157,55 @@ export const BASKET_FRONT = [
   "..." + "C".repeat(BASKET_COLS - 6) + "...",
 ];
 
+// The dog's house, with its name over the door. The doorway fits the dog's head.
+export const HOUSE = [
+  "......................kkkkkkkkkkkkkkkkkk......................",
+  ".....................opkppppppppppppppppk.....................",
+  "....................kkopkooooooooooooooook....................",
+  "...................kpokopkooooooooooooooook...................",
+  "..................kpokukopkqqqqqqqqqqqqqqqqk..................",
+  ".................kpokxxxkopkppppppppppppppppk.................",
+  "................kpokvvvvvkopkooooooooooooooook................",
+  "...............kpokuuuuuuukopkooooooooooooooook...............",
+  "..............kpokxxxxxxxxxkopkqqqqqqqqqqqqqqqqk..............",
+  ".............kpokvvvvvvvvvvvkopkppppppppppppppppk.............",
+  "............kpokuuuuuuuuuuuuukopkooooooooooooooook............",
+  "...........kpokxxxxxxxxxxxxxxxkopkooooooooooooooook...........",
+  "..........kpokvvvvvvvvvvvvvvvvvkopkqqqqqqqqqqqqqqqqk..........",
+  ".........kpokuuuuuuuuuuuuuuuuuuukopkppppppppppppppppk.........",
+  "........kpokxxxxxxxxxxxxxxxxxxxxxkopkooooooooooooooook........",
+  ".......kpokvvvvvvvvvvvvvvvvvvvvvvvkopkooooooooooooooook.......",
+  "......kpokuuuuuuuuuuuuuuuuuuuuuuuuukopkqqqqqqqqqqqqqqqqk......",
+  ".....kpokxxxxxxxxxxxxxxxxxxxxxxxxxxxkopkppppppppppppppppk.....",
+  "....kpokvvvvvvvvvvvvvvvvvvvvvvvvvvvvvkopkooooooooooooooook....",
+  "...kpokkuuuuuuuuuuuuuuuuuuuuuuuuuuuuukkopkqqqqqqqqqqqqqqqqk...",
+  "..kkkk.kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkukkkkkkkkkkkkkkkkkkkkk..",
+  ".......kkMMMMMMMMMMMMMMMMMMMMMMMMMMMkkxxxxxxxxxxxxxxxk........",
+  "........kmkkkmmmmmmmmmmmmmmmmmmmmkmmkvvvvvvvvvvvvvvvvk........",
+  "........kmkmmmmkmmkkmkkmmkmmmkkmkkkmkuuuuuuuuuuuuuuuuk........",
+  "........kmkkmmkmkmkmmkmmkkkmkmmmmkmmkxxxxxxxxxxxxxxxxxk.......",
+  ".......kkmkmmmkmkmkmmkmmkmmmmmkmmkmmkkvvvvvvvvvvvvvvvvk.......",
+  ".......kkmkmmmmkmmkmmkmmmkkmkkmmmmkmkkuuuuuuuuuuuuuuuuk.......",
+  ".......kkmmmmmmmmmmmmmmmmmmmmmmmmmmmkkxxxxxxxxxxxxxxxk........",
+  "........kkkkkkkkkkkkkkkkkkkkkkkkkkkkkvvvvvvvvvvvvvvvvk........",
+  "........kxxxxxxxxxxxxxxxxxxxxxxxxxxxkuuuuuuuuuuuuuuuuk........",
+  "........kvvvvvvvvvkkkkkkkkkvvvvvvvvvkxxxxxxxxxxxxxxxxxk.......",
+  ".......kuuuuuuuukzzzzzzzzzzzkuuuuuuuukvvvvvvvvvvvvvvvvk.......",
+  ".......kxxxxxxxkzzzzzzzzzzzzzkxxxxxxxkuuuuuuuuuuuuuuuuk.......",
+  ".......kvvvvvvkzzzzzzzzzzzzzzzkvvvvvvkxxxxxxxxxxxxxxxk........",
+  "........kuuuuukzzzzzzzzzzzzzzzkuuuuukvvvvvvvvvvvvvvvvk........",
+  "........kxxxxxkzzzzzzzzzzzzzzzkxxxxxkuuuuuuuuuuuuuuuuk........",
+  "........kvvvvvkzzzzzzzzzzzzzzzkvvvvvkxxxxxxxxxxxxxxxxxk.......",
+  ".......kuuuuuukzzzzzzzzzzzzzzzkuuuuuukvvvvvvvvvvvvvvvvk.......",
+  ".......kxxxxxxkzzzzzzzzzzzzzzzkxxxxxxkuuuuuuuuuuuuuuuuk.......",
+  ".......kvvvvvvkzzzzzzzzzzzzzzzkvvvvvvkxxxxxxxxxxxxxxxk........",
+  "........kuuuuukzzzzzzzzzzzzzzzkuuuuukvvvvvvvvvvvvvvvvk........",
+  "........kxxxxxkzzzzzzzzzzzzzzzkxxxxxkuuuuuuuuuuuuuuuuk........",
+  "k.kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk....k.k",
+];
+// Where the dog's head goes when it peeks out of the doorway.
+export const HOUSE_PEEK = { col: 15, row: HOUSE.length - 1 - 10 };
+
 export type Pose = "sit" | "walk" | "lie";
 export type Eyes = "open" | "closed";
 export type Carry = ToyKind | null;
@@ -214,4 +274,9 @@ export function dogSprite({ pose, eyes, step, wag, carrying }: Look) {
     rows = overlay(rows, art, top, Math.round(MOUTH.col + 0.5 - art[0].length / 2));
   }
   return rows;
+}
+
+export function houseSprite(peek: { eyes: Eyes; mouthOpen: boolean } | null) {
+  if (!peek) return HOUSE;
+  return overlay(HOUSE, head(peek.eyes, peek.mouthOpen), HOUSE_PEEK.row, HOUSE_PEEK.col);
 }

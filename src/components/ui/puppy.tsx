@@ -6,11 +6,14 @@ import useMobileDetection from "@/hooks/use-mobile";
 import {
   BASKET_BACK,
   BASKET_FRONT,
+  HOUSE,
+  HOUSE_PEEK,
   PALETTE,
   SPRITE_COLS,
   SPRITE_ROWS,
   TOY_ART,
   dogSprite,
+  houseSprite,
   type Look,
   type ToyKind,
 } from "./puppy-sprites";
@@ -30,6 +33,10 @@ const BASKET_LEFT = 116;
 const BASKET_W = BASKET_FRONT[0].length * PX;
 const BASKET_FRONT_H = BASKET_FRONT.length * PX;
 const BASKET_RIM = BASKET_FRONT_H - 4; // top of the front rim, px above the floor
+
+const HOUSE_RIGHT = 16; // px from the right of the window
+const HOUSE_W = HOUSE[0].length * PX;
+const HOUSE_DOOR = (HOUSE_PEEK.col + 7) * PX; // px from the house's left to the doorway's center
 
 const KINDS: Record<
   ToyKind,
@@ -52,7 +59,7 @@ const TOY_LIST: { id: string; kind: ToyKind; slot: number; floor?: boolean }[] =
 
 type ToyId = string;
 type ToyState = "basket" | "held" | "air" | "floor" | "mouth";
-type Mode = "idle" | "wander" | "nap" | "wag" | "happy" | "chase" | "fetch" | "chew";
+type Mode = "idle" | "wander" | "nap" | "wag" | "happy" | "chase" | "fetch" | "chew" | "home" | "house";
 
 interface Toy {
   id: ToyId;
@@ -99,6 +106,20 @@ const PixelArt = memo(function PixelArt({ rows, flip }: { rows: string[]; flip?:
   );
 });
 
+function Snores() {
+  return [0, 1].map((i) => (
+    <motion.span
+      key={i}
+      className="absolute"
+      initial={{ opacity: 0, x: 0, y: 0 }}
+      animate={{ opacity: [0, 1, 0], x: 10, y: -16 }}
+      transition={{ duration: 2, repeat: Infinity, delay: i, ease: "easeOut" }}
+    >
+      z
+    </motion.span>
+  ));
+}
+
 function makeToys(): Record<ToyId, Toy> {
   return Object.fromEntries(
     TOY_LIST.map(({ id, kind, slot: col, floor }) => {
@@ -125,15 +146,16 @@ export default function Puppy() {
   const reduceMotion = useReducedMotion();
 
   const [mounted, setMounted] = useState(false);
-  const [look, setLook] = useState<Look & { flip: boolean }>({
+  const [look, setLook] = useState<Look & { flip: boolean; inside: boolean; napping: boolean }>({
     pose: "sit",
     eyes: "open",
     step: 0,
     wag: false,
     carrying: null,
     flip: false,
+    inside: false,
+    napping: false,
   });
-  const [napping, setNapping] = useState(false);
   const [hearts, setHearts] = useState<{ id: number; dx: number }[]>([]);
   const [basketHot, setBasketHot] = useState(false);
 
@@ -143,8 +165,15 @@ export default function Puppy() {
     rowsRef.current = rows;
   }, [rows]);
 
+  const { inside, napping, eyes } = look;
+  const houseRows = useMemo(
+    () => houseSprite(inside ? { eyes, mouthOpen: !napping } : null),
+    [inside, napping, eyes]
+  );
+
   const dogEl = useRef<HTMLDivElement>(null);
   const spriteEl = useRef<HTMLDivElement>(null);
+  const houseEl = useRef<HTMLDivElement>(null);
   const toyEls = useRef<Partial<Record<ToyId, HTMLDivElement | null>>>({});
   const toys = useRef(makeToys());
   const grab = useRef<{
@@ -160,8 +189,11 @@ export default function Puppy() {
     if (isMobile) return;
     setMounted(true);
 
+    const houseLeft = () => window.innerWidth - HOUSE_RIGHT - HOUSE_W;
+    const doorX = () => houseLeft() + HOUSE_DOOR;
+
     const dog = {
-      x: window.innerWidth - DOG_W,
+      x: houseLeft() - DOG_W / 2,
       speed: 0,
       facing: -1 as 1 | -1,
       mode: "idle" as Mode,
@@ -170,6 +202,9 @@ export default function Puppy() {
       target: null as ToyId | null,
       returnX: 0,
       carrying: null as ToyId | null,
+      inside: false,
+      homeSpeed: WALK_SPEED,
+      sleepAt: 0, // while in the house, when the dog dozes off
       hopAt: -Infinity,
       blinkUntil: 0,
       nextBlink: 0,
@@ -182,7 +217,6 @@ export default function Puppy() {
     const setMode = (mode: Mode, ms = 0) => {
       dog.mode = mode;
       dog.until = performance.now() + ms;
-      setNapping(mode === "nap");
     };
 
     const idle = () => setMode("idle", rand(2500, 6000));
@@ -194,14 +228,36 @@ export default function Puppy() {
       dog.carrying = null;
     };
 
+    const goHome = (speed: number) => {
+      dog.homeSpeed = speed;
+      setMode("home");
+    };
+
+    const enterHouse = (now: number) => {
+      drop();
+      dog.inside = true;
+      dog.sleepAt = now + rand(1500, 3000);
+      setMode("house", rand(10000, 20000));
+    };
+
+    const leaveHouse = () => {
+      dog.inside = false;
+      dog.x = doorX();
+      dog.facing = -1;
+      dog.hopAt = reduceMotion ? -Infinity : performance.now();
+      setMode("happy", 1500);
+    };
+
     const decide = () => {
       if (reduceMotion) return idle();
       const r = Math.random();
-      if (r < 0.55) {
+      if (r < 0.5) {
         dog.targetX = clamp(dog.x + rand(-400, 400), minX(), maxX());
         setMode("wander");
-      } else if (r < 0.75) {
+      } else if (r < 0.65) {
         setMode("nap", rand(6000, 12000));
+      } else if (r < 0.8) {
+        goHome(WALK_SPEED);
       } else {
         setMode("wag", 2000);
       }
@@ -221,6 +277,7 @@ export default function Puppy() {
     };
 
     throwToy.current = (id, returnX) => {
+      if (dog.inside) leaveHouse();
       drop();
       dog.target = id;
       dog.returnX = clamp(returnX, minX(), maxX());
@@ -329,6 +386,13 @@ export default function Puppy() {
             idle();
           }
           break;
+        case "home":
+          dog.facing = doorX() > dog.x ? 1 : -1;
+          if (moveTo(doorX(), dog.homeSpeed, dt)) enterHouse(now);
+          break;
+        case "house":
+          if (now > dog.until) leaveHouse();
+          break;
       }
     };
 
@@ -348,15 +412,18 @@ export default function Puppy() {
       }
 
       const lying = dog.mode === "nap" || dog.mode === "chew";
+      const napping = dog.mode === "nap" || (dog.inside && now > dog.sleepAt);
       const wag = ["wag", "happy", "chase", "fetch", "chew"].includes(dog.mode);
       const moving = dog.speed > 0;
       const next = {
         pose: lying ? "lie" : moving ? "walk" : "sit",
-        eyes: dog.mode === "nap" || dog.mode === "happy" || now < dog.blinkUntil ? "closed" : "open",
+        eyes: napping || dog.mode === "happy" || now < dog.blinkUntil ? "closed" : "open",
         step: (moving || wag ? Math.floor(now / (dog.speed > 150 ? 70 : 130)) % 4 : 0) as Look["step"],
         wag,
         carrying: dog.carrying ? toys.current[dog.carrying].kind : null,
         flip: dog.facing > 0,
+        inside: dog.inside,
+        napping,
       } as const;
       const key = JSON.stringify(next);
       if (key !== lastKey) {
@@ -366,7 +433,10 @@ export default function Puppy() {
 
       const hop = (now - dog.hopAt) / HOP_MS;
       const lift = hop >= 0 && hop < 1 ? Math.sin(hop * Math.PI) * 10 : 0;
-      if (dogEl.current) dogEl.current.style.transform = `translateX(${dog.x - DOG_W / 2}px)`;
+      if (dogEl.current) {
+        dogEl.current.style.transform = `translateX(${dog.x - DOG_W / 2}px)`;
+        dogEl.current.style.visibility = dog.inside ? "hidden" : "visible";
+      }
       if (spriteEl.current) spriteEl.current.style.transform = `translateY(${-lift}px)`;
 
       for (const toy of Object.values(toys.current)) {
@@ -384,21 +454,33 @@ export default function Puppy() {
 
     // The dog's box ignores the pointer so clicks pass through its transparent
     // corners; instead, check whether a click landed on one of its pixels.
-    const onDog = (e: MouseEvent) => {
-      if (!spriteEl.current || (e.target as Element).closest?.("[data-toy]")) return false;
-      const rect = spriteEl.current.getBoundingClientRect();
+    const onPixel = (e: MouseEvent, el: HTMLElement | null, rows: string[], flip = false) => {
+      if (!el || (e.target as Element).closest?.("[data-toy]")) return false;
+      const rect = el.getBoundingClientRect();
       let col = Math.floor((e.clientX - rect.left) / PX);
       const row = Math.floor((e.clientY - rect.top) / PX);
-      if (dog.facing > 0) col = SPRITE_COLS - 1 - col;
-      const pixel = rowsRef.current[row]?.[col];
+      if (flip) col = rows[0].length - 1 - col;
+      const pixel = rows[row]?.[col];
       return pixel !== undefined && pixel !== ".";
     };
+    const onDog = (e: MouseEvent) =>
+      !dog.inside && onPixel(e, spriteEl.current, rowsRef.current, dog.facing > 0);
+    const onHouse = (e: MouseEvent) => onPixel(e, houseEl.current, HOUSE);
     const onClick = (e: MouseEvent) => {
-      if (!onDog(e)) return;
-      // Keep the click from reaching whatever is under the dog.
+      const dogHit = onDog(e);
+      if (!dogHit && !onHouse(e)) return;
+      // Keep the click from reaching whatever is under the dog or its house.
       e.preventDefault();
       e.stopPropagation();
-      pet(true);
+      if (dogHit) {
+        pet(true);
+      } else if (dog.inside) {
+        // Knocking on the house brings the dog out.
+        leaveHouse();
+        pet(true);
+      } else {
+        goHome(RUN_SPEED);
+      }
     };
     // Petting by rubbing: counts changes of stroke direction (side to side, up and
     // down, or in circles) while the cursor is on or around the dog.
@@ -407,6 +489,7 @@ export default function Puppy() {
       const rect = spriteEl.current?.getBoundingClientRect();
       return (
         !!rect &&
+        !dog.inside &&
         e.clientX > rect.left - margin &&
         e.clientX < rect.right + margin &&
         e.clientY > rect.top - margin &&
@@ -414,7 +497,7 @@ export default function Puppy() {
       );
     };
     const onMouseMove = (e: MouseEvent) => {
-      document.documentElement.classList.toggle("puppy-hover", onDog(e));
+      document.documentElement.classList.toggle("puppy-hover", onDog(e) || onHouse(e));
       const dx = e.clientX - rub.x;
       const dy = e.clientY - rub.y;
       if (Math.abs(dx) + Math.abs(dy) > 2) {
@@ -539,27 +622,35 @@ export default function Puppy() {
             ))}
           </AnimatePresence>
 
-          {napping && !reduceMotion && (
+          {napping && !inside && !reduceMotion && (
             <div
               className="top-4 absolute font-mono text-muted-foreground text-xs"
               style={{ left: DOG_W / 2 + (look.flip ? MOUTH_DX : -MOUTH_DX) }}
             >
-              {[0, 1].map((i) => (
-                <motion.span
-                  key={i}
-                  className="absolute"
-                  initial={{ opacity: 0, x: 0, y: 0 }}
-                  animate={{ opacity: [0, 1, 0], x: 10, y: -16 }}
-                  transition={{ duration: 2, repeat: Infinity, delay: i, ease: "easeOut" }}
-                >
-                  z
-                </motion.span>
-              ))}
+              <Snores />
             </div>
           )}
 
           <PixelArt rows={rows} flip={look.flip} />
         </div>
+      </div>
+
+      {/* Just behind the dog, so it walks in front of the house. */}
+      <div
+        ref={houseEl}
+        aria-hidden="true"
+        className="fixed pointer-events-none"
+        style={{ right: HOUSE_RIGHT, bottom: FLOOR, zIndex: 38 }}
+      >
+        {inside && napping && !reduceMotion && (
+          <div
+            className="absolute font-mono text-[#5c3a24] text-xs"
+            style={{ left: HOUSE_DOOR + 6 * PX, top: (HOUSE_PEEK.row - 2) * PX }}
+          >
+            <Snores />
+          </div>
+        )}
+        <PixelArt rows={houseRows} />
       </div>
 
       {/* Back and front are separate layers so toys in the basket sit between them.
