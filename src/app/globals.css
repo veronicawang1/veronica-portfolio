@@ -139,3 +139,9 @@ html {
     animation: none;
   }
 }
+
+/* Set while the cursor is over one of the puppy's pixels. */
+.puppy-hover,
+.puppy-hover * {
+  cursor: pointer !important;
+}
