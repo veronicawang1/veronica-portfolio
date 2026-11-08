@@ -16,7 +16,7 @@ export function Education({ data }: { data: IEducationEntry[] }) {
             <div className="pl-4 border-l border-muted-foreground hover:border-primary size-full transition-all duration-300">
               <div className="flex sm:flex-row flex-col justify-between items-start">
                 <div>
-                  <p className="text-primary/90 text-lg">{entry.SCHOOL}</p>
+                  <p className="text-[#fff3cc] text-lg">{entry.SCHOOL}</p>
                   <p className="text-sm text-muted-foreground mt-0.5">
                     {entry.DEGREE}
                     <span className="inline-block bg-secondary ml-2 px-2 py-0.5 rounded text-xs">

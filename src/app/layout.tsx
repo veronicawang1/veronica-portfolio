@@ -8,6 +8,7 @@ import "./globals.css";
 import GridPattern from "@/components/ui/grid-pattern";
 import Galaxy from "@/blocks/Backgrounds/Galaxy/Galaxy";
 import Beams from "@/blocks/Backgrounds/Beams/Beams";
+import Puppy from "@/components/ui/puppy";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -82,6 +83,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Puppy />
         </ThemeProvider>
 
         <Analytics />

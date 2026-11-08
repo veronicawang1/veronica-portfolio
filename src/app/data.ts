@@ -1,10 +1,20 @@
-import LibraryImage from "@/assets/frog.jpg";
 import SkygazeImage from "@/assets/frog.jpg";
-import TodoImage from "@/assets/frog.jpg";
+import BlackwellPoster from "@/assets/posters/blackwell.jpg";
+import ChimesPoster from "@/assets/posters/chimes.jpg";
+import EvolveGCNPoster from "@/assets/posters/evolvegcn.jpg";
+import JobShieldPoster from "@/assets/posters/jobshield.jpg";
+import PhaseRecognitionPoster from "@/assets/posters/phase-recognition.jpg";
+import QuantumPathSlide from "../../public/video_clips/quantum_slides/1-path.png";
+import QuantumLeakSlide from "../../public/video_clips/quantum_slides/2-leak.png";
+import QuantumFig1Slide from "../../public/video_clips/quantum_slides/3-fig1.png";
+import QuantumFig2Slide from "../../public/video_clips/quantum_slides/4-fig2.png";
+import QuantumFig3Slide from "../../public/video_clips/quantum_slides/5-fig3.png";
+import SproutImage from "@/assets/sprout-under-construction.jpg";
+import type { ISlide } from "@/components/ui/slideshow";
 import { StaticImageData } from "next/image";
 import { cache } from "react";
 
-export type ProjectTag = "research" | "ml" | "fullstack" | "systems";
+export type ProjectTag = "research" | "ml" | "fullstack" | "systems" | "vr" | "engineering" | "microcontroller";
 
 export interface IProjectData {
   SLUG: string;
@@ -16,6 +26,8 @@ export interface IProjectData {
   NOTE?: string;
   TECH_STACK: string[];
   IMAGE: StaticImageData;
+  VIDEO?: string;
+  SLIDES?: ISlide[];
   HIDDEN: boolean;
   TAGS?: ProjectTag[];
   HIGHLIGHTS?: string[];
@@ -23,11 +35,44 @@ export interface IProjectData {
   COLLABORATORS?: string[];
 }
 
+const QUANTUM_SLIDES: ISlide[] = [
+  {
+    IMAGE: QuantumPathSlide,
+    TITLE: "What a Hamiltonian path looks like",
+    CAPTION:
+      "The four energy levels of one random 4×4 Hamiltonian of the form studied in the paper (Eq. 13): H(t) = (2.1 sin t + sin √2t) H₁ + (2.7 cos t + cos √2t) H₂. Adiabatic state preparation tries to keep the system in the ground state (blue) as H(t) changes, and the gap to the excited states limits how fast that can safely happen. Illustration simulated for this site.",
+  },
+  {
+    IMAGE: QuantumLeakSlide,
+    TITLE: "Moving too fast leaks the state",
+    CAPTION:
+      "The error ε measures how much of the state has leaked out of the ground state. Here the same path is traversed at three speeds: the fast run ends mostly in excited states, while going 12× slower keeps the final error under the 0.1 threshold. The cost of a path is set by how slowly you must go to meet that threshold. Illustration simulated for this site.",
+  },
+  {
+    IMAGE: QuantumFig1Slide,
+    TITLE: "Why study small systems",
+    CAPTION:
+      "Fig. 1 from the paper: at a fixed end time, path length L grows only logarithmically with the Hilbert-space dimension (100 random Hamiltonians per dimension). Long paths are far cheaper to reach by evolving a small system for longer, so the study uses 4×4 Hamiltonians.",
+  },
+  {
+    IMAGE: QuantumFig2Slide,
+    TITLE: "The choice of cost proxy doesn't matter",
+    CAPTION:
+      "Fig. 2: three versions of the cost proxy Q_D (Eq. 12), which weight high- and low-energy excited states differently, give nearly identical results for the same Hamiltonian. The scaling isn't an artifact of how cost is measured.",
+  },
+  {
+    IMAGE: QuantumFig3Slide,
+    TITLE: "Cost grows faster than path length",
+    CAPTION:
+      "Fig. 3, the main result: Q_D/L against path length for four random Hamiltonians at a threshold error of 0.1. Q_D/L keeps rising on a log axis, so the cost of staying adiabatic grows superlinearly, approximately as L log L, as conjectured.",
+  },
+];
+
 export const DATA = {
   HEADER: {
     NAME: "Veronica",
     HEADLINE: "",
-    RESUME: "/resume/resume.pdf",
+    RESUME: "https://docs.google.com/document/d/1Ld-0XXw_m3DoWbWHBt-_Nu_pYI7akThw6MINYp9Td3E/edit",
     EMAIL: "mailto:veronicawang2007@gmail.com",
     GITHUB: "https://github.com/veronicawang1",
     LINKEDIN: "https://www.linkedin.com/in/veronica-wang1/",
@@ -35,52 +80,105 @@ export const DATA = {
 
   ABOUT_ME: {
     INTRO:
-      "Hi! I'm Veronica, a CS student at Stanford. I'm drawn to problems relating to visual perception stemming from my interests in computer vision and design. Currently I'm especially interested in using diffusion and generative AI to build realistic world models to use in fields like robotic training, art, games, and HCI.",
-    EXPERTISE:
-      "I've done research in surgical video understanding (phase recognition with transformers), quantum computing (adiabatic state preparation scaling), and dynamic graph learning. Outside of research I build full-stack products and spend time on graphic design and studio art. Currently mainly working in C++ and learning 3D rendering plus AI/ML.",
+      "Hi! I'm Veronica, a CS student at Stanford. I'm drawn to problems relating to visual perception, stemming from my interests in both computer vision and art. I'm especially interested in using diffusion and generative AI to build realistic world models to use in fields like robotic training, art, games, and HCI. I'm currently conducting robotics research at The Movement Lab at Stanford, where I'm advised by Takara Truong and Dr. Karen Liu. I've also conducted research for surgical video understanding (with Dr. Jinendra Ekanayake from Stanford School of Medicine) and quantum computing (with Dr. Thomas Cohen and Hyunwoo Oh at the University of Maryland). In the summer of 2026, I did an internship at Boeing where I worked on operating system design for the P-8 aircraft and helped deploy local LLMs. Outside of research, I love spending time on graphic design and studio art.",
     BLOG: "",
   },
 
   EDUCATION: [
     {
       SCHOOL: "Stanford University",
-      DEGREE: "B.S. Computer Science",
+      DEGREE: "B.S. Computer Science, AI Track",
       LOCATION: "Stanford, CA",
       DURATION: "2025 – 2029",
     },
   ],
 
   EXPERIENCE: {
+    "Microsoft": {
+      POSITION: "Copilot Innovation Fellow",
+      COMPANY: "Microsoft",
+      LOCATION: "Remote",
+      DURATION: "October 2026 – Present",
+      DESCRIPTION: [
+        "Directly working with product and research teams to test and launch early stage AI products.",
+      ],
+      TECH_STACK: ["Microsoft Copilot", "AI", "LLMs", "Product Testing"],
+    },
+
+    "Stanford Graduate School of Education": {
+      POSITION: "VR Software Engineer",
+      COMPANY: "Stanford Graduate School of Education",
+      LOCATION: "Stanford, CA",
+      DURATION: "September 2026 – Present",
+      DESCRIPTION: [
+        "Developing virtual experiences with Unity and Blender MCPs for the Futuring for Equity Lab on the Quest 3.",
+      ],
+      TECH_STACK: ["Unity", "Blender", "MCP", "Meta Quest 3", "VR"],
+    },
+
+    "The Movement Lab": {
+      POSITION: "Student Researcher",
+      COMPANY: "The Movement Lab",
+      LOCATION: "Stanford, CA",
+      DURATION: "August 2026 – Present",
+      ADVISORS: ["Takara Truong", "Dr. Karen Liu"],
+      DESCRIPTION: [
+        "Creating Isaac Lab environments to train an AgiBot to open doors, walk, and climb stairs for independent roam.",
+        "Teaching body language to the Fauna Sprout for character animation and play.",
+        "Working with motion capture, LIDAR, depth, and synthetic data.",
+      ],
+      TECH_STACK: ["Python", "Isaac Lab", "Reinforcement Learning", "Motion Capture", "LIDAR", "Robotics"],
+      IMAGE: SproutImage,
+    },
+
     "Boeing": {
-      WEBSITE: "https://www.boeing.com",
+      COMPANY: "Boeing",
       POSITION: "Software Engineering Intern",
       LOCATION: "Seattle, WA",
       DURATION: "June 2026 – August 2026",
       DESCRIPTION: [
-        "Implemented ramoops kernel crash persistence and designed a live serial logging system for the P-8 aircraft mission computer, allowing system states and kernel logs across 45 systems to be preserved for debugging.",
-        "Worked with hardware to identify active console ports and evaluated a screen based approach to log each console session with tmux/telnet session management, systemd startup, and logrotate retention.",
+        "Worked on operating system design for the P-8 aircraft mission computer. Validated kernel crash persistence and designed a live serial logging system, allowing states and logs across 45 systems to be preserved.",
+        "Wired active ports for Lantronix console servers and designed an approach to log each console session with tmux/telnet session management, systemd startup, and logrotate for organized data management.",
+        "Prototyped a locally hosted Bonsai LLM workflow for analyzing historical diagnostic logs while keeping critical data internal, saving engineers ~30% time during debugging.",
       ],
-      TECH_STACK: ["C", "C++", "Python", "Bash", "Perl", "Mission Systems", "Virtual Integration"],
+      TECH_STACK: ["C", "C++", "Python", "Bash", "Perl", "Linux", "Local LLMs", "Mission Systems", "Virtual Integration"],
     },
 
     "Quantum Computing Research": {
       PAPER: "https://link.springer.com/article/10.1140/epja/s10050-026-01879-4?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=oa_20260623&utm_content=10.1140/epja/s10050-026-01879-4",
       CITATION: "Cohen, T.D., Oh, H. & Wang, V. Numerical study of computational cost of maintaining adiabaticity for long paths. Eur. Phys. J. A 62, 122 (2026). https://doi.org/10.1140/epja/s10050-026-01879-4",
-      POSITION: "Research Author",
+      POSITION: "Research Intern",
+      COMPANY: "The University of Maryland",
       LOCATION: "College Park, MD",
-      DURATION: "May 2024 – October 2024",
-      COLLABORATORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
+      DURATION: "May 2024 – August 2024",
+      ADVISORS: ["Thomas D. Cohen (UMD)", "Hyunwoo Oh (UMD)"],
       DESCRIPTION: [
-        "Accepted to European Physical Journal A: Hadrons and Nuclei (EPJA-108258.R2).",
-        "Co-authored with physicists at the University of Maryland, providing numerical evidence for a conjecture about the computational cost of adiabatic quantum state preparation.",
-        "Demonstrated that the cost proxy Q_D scales as L log L (superlinear) in path length L, confirming the conjecture that adiabatic state preparation is generically more expensive than linear-scaling alternatives as system size grows.",
-        "Built a simulation pipeline to orchestrate 1k+ runs with strict 10% error gates and validated results across 3 independent proxy formulations and multiple Hamiltonian draws to ensure the scaling behavior was robust.",
+        "Modeled random 4x4 Hamiltonian paths and numerically solved the time-dependent Schrödinger equation to characterize the computational cost of maintaining adiabaticity, finding O(L log L) scaling w.r.t. path length.",
+        "Built a simulation pipeline in Python for 1k+ runs with 10% error gates and cross-validated results across 3 independent cost proxies and Hamiltonian draws to ensure the scaling behavior was generalizable.",
+        "Coauthored a peer-reviewed publication in European Physical Journal A.",
       ],
       TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem", "Numerical Methods"],
+      SLIDES: QUANTUM_SLIDES,
+      IMAGE: QuantumFig3Slide,
     },
   },
 
   PROJECTS: {
+    "Blackwell: Agentic Surgery Environments": {
+      SLUG: "blackwell",
+      VENUE: "AI Agents Hackathon",
+      DESCRIPTION: [
+        "Co-developed BLACKWELL, an AI-powered VR surgical simulation prototype that converts natural-language requests into interactive practice environments.",
+        "Combined an Anthropic-powered agent, anatomical asset retrieval, and MCP tools to assemble procedure-specific scenes with instructional annotations.",
+        "Enabled real-time interaction on Meta Quest 2 through WebXR and Three.js, backed by NVIDIA Warp and Newton for tissue simulation.",
+      ],
+      TECH_STACK: ["Anthropic API", "MCP", "FastAPI", "Three.js", "WebXR", "WebSockets", "NVIDIA Warp", "Newton", "Firecrawl"],
+      TAGS: ["ml", "vr"] as ProjectTag[],
+      VIDEO: "/video_clips/blackwell-clip.mp4",
+      IMAGE: BlackwellPoster,
+      HIDDEN: false,
+    },
+
     "Surgical Phase Recognition for Aneurysm Clipping": {
       SLUG: "surgical-phase-recognition",
       PAPER: "/posters_papers/cs231n-paper.pdf",
@@ -101,7 +199,8 @@ export const DATA = {
       ],
       TECH_STACK: ["Python", "PyTorch", "ResNet50", "MS-TCN", "Transformer", "Viterbi Decoding", "CVAT", "t-SNE", "Confusion Matrix", "Ablation Study", "GCP"],
       TAGS: ["research", "ml"] as ProjectTag[],
-      IMAGE: SkygazeImage,
+      VIDEO: "/video_clips/231n_phase_recognition_clip.mp4",
+      IMAGE: PhaseRecognitionPoster,
       HIDDEN: false,
     },
 
@@ -124,7 +223,8 @@ export const DATA = {
       ],
       TECH_STACK: ["Python", "PyTorch", "Graph Neural Networks", "Transformer", "EvolveGCN", "Weights & Biases", "Scikit-learn", "Docker", "GCP"],
       TAGS: ["research", "ml"] as ProjectTag[],
-      IMAGE: LibraryImage,
+      VIDEO: "/video_clips/229_evolvegcn_t_clip.mp4",
+      IMAGE: EvolveGCNPoster,
       HIDDEN: false,
     },
 
@@ -142,11 +242,12 @@ export const DATA = {
       HIGHLIGHTS: [
         "F1: 0.913",
         "4.5× cheaper than LLM-only",
-        "95/100 fraud caught",
+        "95% fraud caught",
       ],
       TECH_STACK: ["Next.js", "TypeScript", "Supabase", "Gemini 2.5 Flash", "Scikit-learn", "TF-IDF", "Vercel", "PostgreSQL", "GCP"],
       TAGS: ["fullstack", "ml"] as ProjectTag[],
-      IMAGE: TodoImage,
+      VIDEO: "/video_clips/jobshield-clip.mp4",
+      IMAGE: JobShieldPoster,
       HIDDEN: false,
     },
 
@@ -167,7 +268,8 @@ export const DATA = {
       ],
       TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem"],
       TAGS: ["research"] as ProjectTag[],
-      IMAGE: LibraryImage,
+      SLIDES: QUANTUM_SLIDES,
+      IMAGE: QuantumFig3Slide,
       HIDDEN: true,
     },
 
@@ -193,7 +295,8 @@ export const DATA = {
 
     "Chimes: Assistive Audio ID Device": {
       SLUG: "chimes",
-      VENUE: "Chimes · Contract",
+      VENUE: "Chimes · Volunteering",
+      TAGS: ["engineering", "microcontroller"] as ProjectTag[],
       DESCRIPTION: [
         "Designed an RFID-based audio identification device for visually impaired custodial employees at Chimes, a nonprofit employing people with disabilities — helping workers safely distinguish cleaning chemicals without relying on color or label recognition.",
         "Built a two-ESP32 pipeline: an RFID reader identifies tagged equipment and transmits the ID via ESP-NOW to a receiver ESP32, which matches it to an audio file on an SD card and plays it through a 3D-printed speaker enclosure.",
@@ -206,7 +309,8 @@ export const DATA = {
         "6-participant user study",
       ],
       TECH_STACK: ["ESP32", "RFID", "ESP-NOW", "C++", "Arduino", "OnShape", "CAD", "3D Printing", "Raspberry Pi"],
-      IMAGE: SkygazeImage,
+      VIDEO: "/video_clips/chimes-clip.mp4",
+      IMAGE: ChimesPoster,
       HIDDEN: false,
     },
 
@@ -283,6 +387,12 @@ export const DATA = {
   ART: {
     PIECES: [
       {
+        title: "Swan",
+        medium: "3D render, Blender",
+        year: "2026",
+        image: "/art/final.png",
+      },
+      {
         title: "Figure",
         medium: "Oil on canvas",
         year: "2024",
@@ -351,7 +461,7 @@ export const DATA = {
       },
       {
         title: "Peonies",
-        medium: "Oil on canvas",
+        medium: "Acrylic on canvas",
         year: "2022",
         image: "/art/peonies-jar.jpg",
       },

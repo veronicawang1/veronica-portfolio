@@ -72,6 +72,8 @@ export default function Iridescence({
     const gl = renderer.gl;
     gl.clearColor(1, 1, 1, 1);
 
+    // Assigned below; declared first because resize() checks it before it exists.
+    // eslint-disable-next-line prefer-const
     let program: Program;
 
     function resize() {

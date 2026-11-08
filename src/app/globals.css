@@ -97,3 +97,51 @@ span,
 li {
   transition: all 1s var(--elastic-out);
 }
+
+/* String-light twinkle on the collage board */
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .twinkle { animation: none; }
+}
+
+/* Section links stop below the fixed top bar. */
+html {
+  scroll-padding-top: 4.5rem;
+}
+
+/* Landing greeting: pure CSS so it plays the moment the page paints, without waiting for JS. */
+@keyframes letter-drop {
+  from { opacity: 0; transform: translateY(-90%) rotate(-8deg); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes drop-in {
+  from { opacity: 0; transform: translateY(-28px); }
+  to { opacity: 1; transform: none; }
+}
+.letter-drop {
+  display: inline-block;
+  white-space: pre;
+  animation: letter-drop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.drop-in {
+  animation: drop-in 0.5s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+/* Reduced motion skips it. */
+@media (prefers-reduced-motion: reduce) {
+  .letter-drop,
+  .drop-in {
+    animation: none;
+  }
+}
+
+/* Set while the cursor is over one of the puppy's pixels. */
+.puppy-hover,
+.puppy-hover * {
+  cursor: pointer !important;
+}

@@ -1,5 +1,9 @@
 import { ArrowUpRight, FileText, Presentation } from "lucide-react";
+import type { StaticImageData } from "next/image";
 import type { ProjectTag } from "@/app/data";
+import { DetailsDropdown } from "@/components/ui/details-dropdown";
+import { ProjectMedia } from "@/components/ui/project-media";
+import type { ISlide } from "@/components/ui/slideshow";
 
 interface IProjectData {
   LIVE_PREVIEW?: string;
@@ -13,6 +17,9 @@ interface IProjectData {
   VENUE?: string;
   COLLABORATORS?: string[];
   TAGS?: ProjectTag[];
+  IMAGE?: StaticImageData;
+  VIDEO?: string;
+  SLIDES?: ISlide[];
 }
 
 const TAG_LABELS: Record<ProjectTag, string> = {
@@ -20,6 +27,9 @@ const TAG_LABELS: Record<ProjectTag, string> = {
   ml: "ml",
   fullstack: "full-stack",
   systems: "systems",
+  vr: "vr",
+  engineering: "engineering",
+  microcontroller: "microcontroller",
 };
 
 export function Projects({
@@ -55,7 +65,7 @@ export function Projects({
                     ))}
                   </div>
 
-                  <p className="text-primary/90 text-lg leading-snug">{key}</p>
+                  <p className="text-[#fff3cc] text-lg leading-snug">{key}</p>
 
                   {value.VENUE && (
                     <p className="text-xs text-muted-foreground/70 mt-0.5">{value.VENUE}</p>
@@ -125,13 +135,7 @@ export function Projects({
                 )}
               </div>
 
-              <ul className="space-y-1 mt-2 pl-3 text-muted-foreground text-sm text-justify list-disc">
-                {value.DESCRIPTION.map((desc, index) => (
-                  <li key={index}>
-                    <span>{desc}</span>
-                  </li>
-                ))}
-              </ul>
+              <ProjectMedia video={value.VIDEO} image={value.IMAGE} slides={value.SLIDES} alt={key} />
 
               <ul className="flex flex-wrap items-center gap-2 mt-2 pl-3">
                 {value.TECH_STACK.map((tech, index) => (
@@ -143,6 +147,8 @@ export function Projects({
                   </li>
                 ))}
               </ul>
+
+              <DetailsDropdown items={value.DESCRIPTION} />
             </div>
           </li>
         ))}
@@ -155,7 +161,7 @@ export function Projects({
           className="inline-flex justify-center items-center bg-background hover:bg-accent disabled:opacity-50 shadow-sm px-4 py-2 border border-input rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring h-9 font-medium text-muted-foreground text-sm whitespace-nowrap transition-colors hover:text-accent-foreground cursor-target disabled:pointer-events-none"
           href={all}
         >
-          View all projects
+          View projects on GitHub
         </a>
       </div>
     </div>

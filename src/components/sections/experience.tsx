@@ -1,11 +1,15 @@
 "use client";
 
 import { extractDomain } from "@/lib/utils";
+import { ProjectMedia } from "@/components/ui/project-media";
+import type { ISlide } from "@/components/ui/slideshow";
 import { ArrowUpRight, FileText, Quote } from "lucide-react";
+import type { StaticImageData } from "next/image";
 import { useState } from "react";
 
 interface IExperienceData {
   WEBSITE?: string;
+  COMPANY?: string;
   PAPER?: string;
   CITATION?: string;
   POSITION: string;
@@ -14,6 +18,10 @@ interface IExperienceData {
   DESCRIPTION: string[];
   TECH_STACK: string[];
   COLLABORATORS?: string[];
+  ADVISORS?: string[];
+  IMAGE?: StaticImageData;
+  VIDEO?: string;
+  SLIDES?: ISlide[];
 }
 
 function CitationTab({ citation }: { citation: string }) {
@@ -52,35 +60,30 @@ export function Experience({
             <div className="pl-4 border-muted-foreground hover:border-primary border-l size-full transition-all duration-300">
               <div className="flex sm:flex-row flex-col justify-between items-start">
                 <div>
-                  <p className="text-primary/90 text-lg">
+                  <p className="text-[#fff3cc] text-lg">
                     {value.POSITION}{" "}
-                    <span className="inline-block bg-secondary max-sm:mb-2 ml-2 px-2 py-1 rounded text-xs">
+                    <span className="inline-block bg-secondary max-sm:mb-2 ml-2 px-2 py-1 rounded text-muted-foreground text-xs">
                       {value.LOCATION}
                     </span>
                   </p>
-                  <p className="flex items-center gap-3 text-sm">
+                  <p className="flex items-center gap-3 text-muted-foreground text-sm">
+                    {value.COMPANY && (
+                      <span>
+                        at <span className="font-semibold text-primary/90">{value.COMPANY}</span>
+                      </span>
+                    )}
                     {value.WEBSITE && (
                       <span className="flex items-center">
                         at,{" "}
                         <a
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-1 ml-1"
+                          className="flex items-center gap-1 ml-1 font-semibold text-primary/90"
                           href={value.WEBSITE}
                         >
                           {extractDomain(value.WEBSITE)} <ArrowUpRight size={18} />
                         </a>
                       </span>
-                    )}
-                    {value.PAPER && (
-                      <a
-                        className="flex items-center gap-1 hover:text-primary transition-colors"
-                        href={value.PAPER}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        publication <FileText size={14} />
-                      </a>
                     )}
                   </p>
                   {value.COLLABORATORS && value.COLLABORATORS.length > 0 && (
@@ -88,13 +91,30 @@ export function Experience({
                       w/ {value.COLLABORATORS.join(", ")}
                     </p>
                   )}
+                  {value.ADVISORS && value.ADVISORS.length > 0 && (
+                    <p className="text-xs text-muted-foreground/60 mt-0.5">
+                      advised by {value.ADVISORS.join(", ")}
+                    </p>
+                  )}
+                  {value.PAPER && (
+                    <a
+                      className="flex items-center gap-1 mt-1 w-fit text-muted-foreground hover:text-primary text-sm transition-colors"
+                      href={value.PAPER}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      publication <FileText size={14} />
+                    </a>
+                  )}
                 </div>
                 <p className="text-muted-foreground text-sm">
                   {value.DURATION}
                 </p>
               </div>
 
-              <ul className="space-y-1 mt-1 pl-3 text-muted-foreground text-sm text-justify list-disc">
+              <ProjectMedia video={value.VIDEO} image={value.IMAGE} slides={value.SLIDES} alt={key} />
+
+              <ul className="space-y-1 mt-3 pl-6 text-muted-foreground text-sm text-justify list-disc">
                 {value.DESCRIPTION.map((desc, index) => (
                   <li key={index}>
                     <span>{desc}</span>
