@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>thinkygraph</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Ccircle cx='10' cy='11' r='4' fill='%23aa9371'/%3E%3Ccircle cx='22' cy='21' r='4' fill='%23fffaf1'/%3E%3Cpath d='M12.5 13.5 19.5 18.5' stroke='%23d6c6ac' stroke-width='2'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bitter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="/thinkygraphs/assets/index-CF5jGeHK.js"></script>
+    <link rel="stylesheet" crossorigin href="/thinkygraphs/assets/index-DZatAiZf.css">
+  </head>
+  <body>
+    <div id="board">
+      <div id="world">
+        <svg id="edges" aria-hidden="true">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0.5 L10,5 L0,9.5 Z" class="head" />
+            </marker>
+            <marker id="arrow-sel" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0,0.5 L10,5 L0,9.5 Z" class="head sel" />
+            </marker>
+            <marker id="arrow-bold" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto-start-reverse">
+              <path d="M0,0.5 L10,5 L0,9.5 Z" class="head" />
+            </marker>
+            <marker id="arrow-bold-sel" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto-start-reverse">
+              <path d="M0,0.5 L10,5 L0,9.5 Z" class="head sel" />
+            </marker>
+          </defs>
+          <g id="edge-g"></g>
+        </svg>
+        <div id="labels"></div>
+        <div id="nodes"></div>
+      </div>
+    </div>
+
+    <header id="topbar">
+      <span id="board-name" class="brand" title="Click to rename">Untitled</span>
+      <input id="search" type="search" placeholder="search" autocomplete="off" spellcheck="false" />
+      <span class="spacer"></span>
+      <button id="disk-btn" class="pill"></button>
+      <button id="menu-btn" class="icon" title="Menu">⋯</button>
+      <div id="menu" hidden>
+        <button data-act="new">New board</button>
+        <button data-act="open" class="needs-fs">Open folder…</button>
+        <button data-act="save-folder" class="needs-fs">Save as…</button>
+        <hr />
+        <button data-act="export">Export .thinky file</button>
+        <button data-act="import">Import .thinky file…</button>
+        <hr />
+        <button data-act="fit">Fit to screen <kbd>F</kbd></button>
+        <button data-act="help">Shortcuts <kbd>?</kbd></button>
+      </div>
+    </header>
+
+    <footer>
+      <button id="zoom" title="Reset zoom (⌘0)">100%</button>
+    </footer>
+
+    <div id="marquee"></div>
+    <div id="drop-dot"></div>
+    <div id="toast" role="status"></div>
+    <input type="file" id="import-file" accept=".thinky,.json" hidden />
+
+    <div id="help" hidden>
+      <div class="card">
+        <h2>Shortcuts</h2>
+        <div class="cols">
+          <section>
+            <h3>Add</h3>
+            <p><span>Drop PDF / link / image / text</span><span>at cursor</span></p>
+            <p><span>Paste (URL, text, screenshot)</span><kbd>⌘V</kbd></p>
+            <p><span>New note</span><span>double-click · <kbd>N</kbd></span></p>
+            <h3>Connect</h3>
+            <p><span>Select another node</span><span><kbd>⇧</kbd> + click</span></p>
+            <p><span>Line between selected</span><kbd>L</kbd></p>
+            <p><span>Arrow (click line first)</span><span><kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></span></p>
+            <p><span>Bold a line (click line first)</span><kbd>B</kbd></p>
+            <p><span>Label a line</span><span>double-click · <kbd>⏎</kbd></span></p>
+            <h3>Edit</h3>
+            <p><span>Caption / edit note</span><span>double-click · <kbd>⏎</kbd></span></p>
+            <p><span>Rename paper or link</span><span>double-click title</span></p>
+            <p><span>Finish editing</span><kbd>esc</kbd></p>
+          </section>
+          <section>
+            <h3>Organize</h3>
+            <p><span>Color: none · sand · bronze · slate · black</span><span><kbd>1</kbd>–<kbd>5</kbd></span></p>
+            <p><span>Number steps (in click order)</span><span><kbd>#</kbd> · double-click badge to edit</span></p>
+            <p><span>Make a task / check it off</span><span><kbd>T</kbd> · click box</span></p>
+            <p><span>Find a picture for a paper / link</span><kbd>P</kbd></p>
+            <p><span>Open PDF or link</span><span><kbd>O</kbd> · ↗</span></p>
+            <p><span>Resize (corner or side)</span><span>drag · double-click to reset</span></p>
+            <p><span>Move selected</span><span>drag · arrows</span></p>
+            <p><span>Delete</span><kbd>⌫</kbd></p>
+            <p><span>Undo / redo</span><span><kbd>⌘Z</kbd> <kbd>⇧⌘Z</kbd></span></p>
+            <h3>Navigate</h3>
+            <p><span>Pan</span><span>drag empty space · scroll</span></p>
+            <p><span>Zoom</span><span>pinch · <kbd>⌘</kbd>+scroll</span></p>
+            <p><span>Box select</span><span><kbd>⇧</kbd> + drag</span></p>
+            <p><span>Search (titles, captions, PDF text)</span><kbd>/</kbd></p>
+            <p><span>Fit to screen</span><kbd>F</kbd></p>
+            <h3>Save</h3>
+            <p><span>Autosaves to your folder · save now</span><kbd>⌘S</kbd></p>
+          </section>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
