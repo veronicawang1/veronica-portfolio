@@ -2,18 +2,14 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ASPECTS, LAYOUTS, STRINGS } from "./collage-layout";
 
 const ALTS = [
-  "at the Palace of Fine Arts",
-  "with a golden retriever",
   "holding certificates with friends",
-  "in a green frog hat",
   "with friends overlooking a city at dusk",
   "with a friend in Yosemite",
   "at graduation with friends",
-  "overlooking a city at night",
   "with friends holding snacks",
   "as a child in sunglasses",
   "with friends in a sunlit hall",
@@ -22,23 +18,31 @@ const ALTS = [
   "with a friend at home",
   "with friends on a hill at dusk",
   "with a friend in a grand hall",
-  "by balloon palm trees",
   "at a concert with a friend",
   "at dinner",
   "at graduation with family",
-  "in a knit hat with friends",
   "at a formal with friends",
   "with a friend in a lobby",
   "with a friend at a formal under balloons",
 ];
 
-// File numbers in /public/collage, in the same order as ALTS. Numbers are never reused,
-// so a cached copy of a removed photo can't show up in place of a new one.
-const FILES = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 26];
+// Scenery prints mixed in among the people.
+const SCENERY = [
+  "Birds crossing a blue sky over misty mountains",
+  "Hazy blue mountains under a bright sky",
+  "Flooded rice terraces reflecting the sky",
+  "A river and bridge under a pink dusk sky",
+  "Sun rays falling on islands in a calm sea",
+  "A city skyline reflected in a river at night",
+];
 
-export const PHOTOS = ALTS.map((alt, i) => ({
+// File numbers in /public/collage, in the same order as ALTS followed by SCENERY. Numbers are never reused,
+// so a cached copy of a removed photo can't show up in place of a new one.
+const FILES = [3, 5, 6, 7, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 23, 24, 26, 27, 33, 29, 28, 31, 32];
+
+export const PHOTOS = [...ALTS.map((alt) => `Veronica ${alt}`), ...SCENERY].map((alt, i) => ({
   src: `/collage/photo-${String(FILES[i]).padStart(2, "0")}.jpg`,
-  alt: `Veronica ${alt}`,
+  alt,
   aspect: ASPECTS[i],
 }));
 
@@ -102,14 +106,13 @@ function Strings({ paths }: { paths: readonly string[] }) {
 export function CollageBoard() {
   return (
     <>
-      <Wall layout="narrow" className="sm:hidden aspect-[0.5]" />
+      <Wall layout="narrow" className="sm:hidden aspect-[0.48]" />
       <Wall layout="wide" className="max-sm:hidden aspect-[1.5]" />
     </>
   );
 }
 
 function Wall({ layout, className }: { layout: "wide" | "narrow"; className: string }) {
-  const wall = useRef<HTMLDivElement>(null);
   const [canDrag, setCanDrag] = useState(false);
   // Prints that have been picked up, oldest first: the latest sits on top.
   const [lifted, setLifted] = useState<number[]>([]);
@@ -127,7 +130,7 @@ function Wall({ layout, className }: { layout: "wide" | "narrow"; className: str
   const lift = useCallback((i: number) => setLifted((l) => (l[l.length - 1] === i ? l : [...l.filter((n) => n !== i), i])), []);
 
   return (
-    <div ref={wall} className={`isolate relative w-full ${className}`}>
+    <div className={`isolate relative w-full ${className}`}>
       <Strings paths={STRINGS[layout]} />
 
       {PHOTOS.map((photo, i) => {
@@ -151,8 +154,8 @@ function Wall({ layout, className }: { layout: "wide" | "narrow"; className: str
             <motion.div
               className={canDrag ? "cursor-grab active:cursor-grabbing" : undefined}
               drag={canDrag}
-              dragConstraints={wall}
-              dragElastic={0.25}
+              // No drag constraints: with them, framer-motion re-places every print when the
+              // window is resized, and the hidden layout's zero-size wall pulls them into a pile.
               dragMomentum={false}
               whileHover={canDrag ? { scale: 1.04 } : undefined}
               whileDrag={{ scale: 1.08, rotate: -spot.rotate }}
