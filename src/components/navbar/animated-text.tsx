@@ -20,7 +20,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
       initial="initial"
       whileHover="hovered"
       href={href}
-      className="relative block w-fit leading-[1.2rem] rounded-lg p-0 text-base text-primary/90 whitespace-nowrap sm:px-2 sm:py-1"
+      className="relative block w-fit leading-[1.2rem] rounded-lg p-0 font-mono text-sm text-primary/90 whitespace-nowrap sm:px-2 sm:py-1"
     >
       <motion.div
         className="absolute bottom-0 left-0 right-0 h-px bg-accent"

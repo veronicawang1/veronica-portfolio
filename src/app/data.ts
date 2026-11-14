@@ -9,12 +9,11 @@ import QuantumLeakSlide from "../../public/video_clips/quantum_slides/2-leak.png
 import QuantumFig1Slide from "../../public/video_clips/quantum_slides/3-fig1.png";
 import QuantumFig2Slide from "../../public/video_clips/quantum_slides/4-fig2.png";
 import QuantumFig3Slide from "../../public/video_clips/quantum_slides/5-fig3.png";
-import SproutImage from "@/assets/sprout-under-construction.jpg";
 import type { ISlide } from "@/components/ui/slideshow";
 import { StaticImageData } from "next/image";
 import { cache } from "react";
 
-export type ProjectTag = "research" | "ml" | "fullstack" | "systems" | "vr" | "engineering" | "microcontroller";
+export type ProjectTag = "research" | "ml" | "fullstack" | "systems" | "vr" | "engineering" | "microcontroller" | "simulation";
 
 export interface IProjectData {
   SLUG: string;
@@ -71,7 +70,7 @@ const QUANTUM_SLIDES: ISlide[] = [
 export const DATA = {
   HEADER: {
     NAME: "Veronica",
-    HEADLINE: "",
+    HEADLINE: "physical ai · world modeling · gaming",
     RESUME: "https://docs.google.com/document/d/1Ld-0XXw_m3DoWbWHBt-_Nu_pYI7akThw6MINYp9Td3E/edit",
     EMAIL: "mailto:veronicawang2007@gmail.com",
     GITHUB: "https://github.com/veronicawang1",
@@ -105,6 +104,21 @@ export const DATA = {
       TECH_STACK: ["Microsoft Copilot", "AI", "LLMs", "Product Testing"],
     },
 
+    "The Movement Lab": {
+      POSITION: "Student Researcher",
+      COMPANY: "The Movement Lab",
+      LOCATION: "Stanford, CA",
+      DURATION: "August 2026 – Present",
+      ADVISORS: ["Takara Truong", "Dr. Karen Liu"],
+      DESCRIPTION: [
+        "Capturing expressive mocap and retargeting it to the Fauna Sprout, cleaning up balance, foot-contact, and joint-limit artifacts.",
+        "Training whole-body motion trackers with PPO by fine-tuning a LoRA adapter on NVIDIA's G1 tracker, tuning rewards, terminations, and domain randomization.",
+        "Taking policies from Isaac Lab to MuJoCo to hardware, where Sprout tracks over a minute of a LAFAN1 dance.",
+        "Building agent-driven teleoperation for an AgiBot humanoid (pick-and-place, door opening) with depth and LiDAR data.",
+      ],
+      TECH_STACK: ["Isaac Lab", "MuJoCo", "PPO", "LoRA", "Motion Retargeting", "Motion Capture", "Sim-to-Real", "Domain Randomization", "ROS 2", "LiDAR"],
+    },
+
     "Stanford Graduate School of Education": {
       POSITION: "VR Software Engineer",
       COMPANY: "Stanford Graduate School of Education",
@@ -114,21 +128,6 @@ export const DATA = {
         "Developing virtual experiences with Unity and Blender MCPs for the Futuring for Equity Lab on the Quest 3.",
       ],
       TECH_STACK: ["Unity", "Blender", "MCP", "Meta Quest 3", "VR"],
-    },
-
-    "The Movement Lab": {
-      POSITION: "Student Researcher",
-      COMPANY: "The Movement Lab",
-      LOCATION: "Stanford, CA",
-      DURATION: "August 2026 – Present",
-      ADVISORS: ["Takara Truong", "Dr. Karen Liu"],
-      DESCRIPTION: [
-        "Creating Isaac Lab environments to train an AgiBot to open doors, walk, and climb stairs for independent roam.",
-        "Teaching body language to the Fauna Sprout for character animation and play.",
-        "Working with motion capture, LIDAR, depth, and synthetic data.",
-      ],
-      TECH_STACK: ["Python", "Isaac Lab", "Reinforcement Learning", "Motion Capture", "LIDAR", "Robotics"],
-      IMAGE: SproutImage,
     },
 
     "Boeing": {
@@ -158,8 +157,6 @@ export const DATA = {
         "Coauthored a peer-reviewed publication in European Physical Journal A.",
       ],
       TECH_STACK: ["Python", "Mathematica", "Quantum Simulation", "Adiabatic Theorem", "Numerical Methods"],
-      SLIDES: QUANTUM_SLIDES,
-      IMAGE: QuantumFig3Slide,
     },
   },
 
@@ -173,7 +170,7 @@ export const DATA = {
         "Enabled real-time interaction on Meta Quest 2 through WebXR and Three.js, backed by NVIDIA Warp and Newton for tissue simulation.",
       ],
       TECH_STACK: ["Anthropic API", "MCP", "FastAPI", "Three.js", "WebXR", "WebSockets", "NVIDIA Warp", "Newton", "Firecrawl"],
-      TAGS: ["ml", "vr"] as ProjectTag[],
+      TAGS: ["ml", "vr", "simulation"] as ProjectTag[],
       VIDEO: "/video_clips/blackwell-clip.mp4",
       IMAGE: BlackwellPoster,
       HIDDEN: false,
@@ -331,6 +328,17 @@ export const DATA = {
 
   SKILLS: {
     Languages: ["Python", "JavaScript", "TypeScript", "HTML/CSS", "LaTeX", "C++", "C", "Java", "x86"],
+    "Robotics & Simulation": [
+      "Isaac Lab",
+      "Reinforcement Learning",
+      "Motion Capture",
+      "LIDAR",
+      "NVIDIA Warp",
+      "Newton",
+      "Unity",
+      "Blender",
+      "WebXR",
+    ],
     "ML & AI": [
       "PyTorch",
       "Scikit-learn",

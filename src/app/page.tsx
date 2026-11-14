@@ -15,7 +15,8 @@ import {
   Skills,
 } from "@/components/sections";
 
-import DarkVeil from "@/blocks/Backgrounds/DarkVeil/DarkVeil";
+import AsciiVeil from "@/components/ui/ascii-veil";
+import { SideRails } from "@/components/ui/side-rails";
 
 export default function Page() {
   return (
@@ -27,8 +28,10 @@ export default function Page() {
           WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)'
         }}
       >
-        <DarkVeil />
+        <AsciiVeil />
       </div>
+
+      <SideRails />
 
 
       <div className="mx-auto px-4 pt-6 sm:pt-12 w-full lg:w-2/3 xl:w-1/2 text-foreground">

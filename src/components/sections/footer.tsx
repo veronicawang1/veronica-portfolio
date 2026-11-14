@@ -11,15 +11,15 @@ export function Footer() {
   return (
     <div className="flex flex-col items-center gap-4 mb-6 py-10 border-gray-800 border-t">
       <div className="flex max-md:flex-col justify-between items-center max-md:gap-2 w-full">
-        <p className="text-muted-foreground text-base text-center">
+        <p className="font-mono text-muted-foreground text-xs text-center">
           &copy; {new Date().getFullYear()} Veronica Wang. All rights reserved.
         </p>
         <button
-          className="flex items-center gap-2 w-fit text-muted-foreground text-base cursor-pointer"
+          className="flex items-center gap-2 w-fit font-mono text-muted-foreground text-xs cursor-pointer"
           onClick={scrollToTop}
         >
           Elevate to the top
-          <ArrowUp size={20} />
+          <ArrowUp size={14} />
         </button>
       </div>
       <a

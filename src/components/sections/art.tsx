@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { SectionHeading } from "@/components/ui/section-heading";
 
 interface IArtPiece {
   title: string;
@@ -155,7 +156,7 @@ export function Art({ data }: { data: IArtData }) {
 
   return (
     <div id="art" className="py-10">
-      <h2 className="font-medium text-primary/90 text-base">art.</h2>
+      <SectionHeading index="06">art</SectionHeading>
 
       <div className="mt-4 columns-2 sm:columns-3 gap-2 space-y-2">
         {data.PIECES.map((piece, i) => (

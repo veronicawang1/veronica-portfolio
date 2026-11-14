@@ -98,16 +98,17 @@ li {
   transition: all 1s var(--elastic-out);
 }
 
-/* String-light twinkle on the collage board */
-@keyframes twinkle {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.45; }
+/* Prints hung on the collage strings sway on their pegs */
+@keyframes print-sway {
+  0%, 100% { transform: rotate(-1.1deg); }
+  50% { transform: rotate(1.1deg); }
 }
-.twinkle {
-  animation: twinkle 2s ease-in-out infinite;
+.print-sway {
+  transform-origin: 50% 0%;
+  animation: print-sway 6s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .twinkle { animation: none; }
+  .print-sway { animation: none; }
 }
 
 /* Section links stop below the fixed top bar. */
@@ -144,4 +145,36 @@ html {
 .puppy-hover,
 .puppy-hover * {
   cursor: pointer !important;
+}
+
+/* Small square labels for tech stacks, tags and locations. */
+.chip {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1.5;
+  color: hsl(var(--primary) / 0.8);
+}
+.chip-accent {
+  border-color: rgba(201, 184, 255, 0.4);
+  background: rgba(201, 184, 255, 0.08);
+  color: #c9b8ff;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+}
+
+/* Blinking block cursor after the site name in the top bar. */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.blink {
+  animation: blink 1.1s steps(1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .blink { animation: none; }
 }

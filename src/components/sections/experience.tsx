@@ -2,6 +2,7 @@
 
 import { extractDomain } from "@/lib/utils";
 import { ProjectMedia } from "@/components/ui/project-media";
+import { SectionHeading } from "@/components/ui/section-heading";
 import type { ISlide } from "@/components/ui/slideshow";
 import { ArrowUpRight, FileText, Quote } from "lucide-react";
 import type { StaticImageData } from "next/image";
@@ -52,7 +53,7 @@ export function Experience({
 }) {
   return (
     <div id="experience" className="py-10">
-      <h2 className="font-medium text-primary/90 text-base">experience.</h2>
+      <SectionHeading index="03">experience</SectionHeading>
 
       <ul className="flex flex-col gap-12 mt-4 font-normal text-primary/90 text-base">
         {Object.entries(data).map(([key, value]) => (
@@ -60,13 +61,13 @@ export function Experience({
             <div className="pl-4 border-muted-foreground hover:border-primary border-l size-full transition-all duration-300">
               <div className="flex sm:flex-row flex-col justify-between items-start">
                 <div>
-                  <p className="text-[#fff3cc] text-lg">
+                  <p className="font-mono font-medium text-[#fff3cc] text-base leading-snug">
                     {value.POSITION}{" "}
-                    <span className="inline-block bg-secondary max-sm:mb-2 ml-2 px-2 py-1 rounded text-muted-foreground text-xs">
+                    <span className="max-sm:mb-2 ml-2 align-middle chip">
                       {value.LOCATION}
                     </span>
                   </p>
-                  <p className="flex items-center gap-3 text-muted-foreground text-sm">
+                  <p className="flex items-center gap-3 mt-1 font-mono text-muted-foreground text-xs">
                     {value.COMPANY && (
                       <span>
                         at <span className="font-semibold text-primary/90">{value.COMPANY}</span>
@@ -107,7 +108,7 @@ export function Experience({
                     </a>
                   )}
                 </div>
-                <p className="text-muted-foreground text-sm">
+                <p className="font-mono text-muted-foreground text-xs sm:text-right whitespace-nowrap">
                   {value.DURATION}
                 </p>
               </div>
@@ -126,7 +127,7 @@ export function Experience({
                 {value.TECH_STACK.map((tech, index) => (
                   <li
                     key={index}
-                    className="bg-muted px-2 py-1 rounded text-xs"
+                    className="chip"
                   >
                     {tech}
                   </li>

@@ -58,6 +58,8 @@ export default {
 			},
 			fontFamily: {
 				outfit: ["var(--font-outfit)"],
+				pixel: ["var(--font-pixel)", "ui-monospace", "monospace"],
+				mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
 			},
 			keyframes: {
 				shine: {

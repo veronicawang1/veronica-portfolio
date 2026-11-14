@@ -3,6 +3,7 @@ import type { StaticImageData } from "next/image";
 import type { ProjectTag } from "@/app/data";
 import { DetailsDropdown } from "@/components/ui/details-dropdown";
 import { ProjectMedia } from "@/components/ui/project-media";
+import { SectionHeading } from "@/components/ui/section-heading";
 import type { ISlide } from "@/components/ui/slideshow";
 
 interface IProjectData {
@@ -30,6 +31,7 @@ const TAG_LABELS: Record<ProjectTag, string> = {
   vr: "vr",
   engineering: "engineering",
   microcontroller: "microcontroller",
+  simulation: "simulation",
 };
 
 export function Projects({
@@ -46,7 +48,7 @@ export function Projects({
 
   return (
     <div id="projects" className="py-10">
-      <h2 className="font-medium text-primary/90 text-base">projects.</h2>
+      <SectionHeading index="04">projects</SectionHeading>
 
       <ul className="flex flex-col gap-12 mt-4 font-normal text-primary/90 text-base">
         {visible.map(([key, value]) => (
@@ -58,14 +60,14 @@ export function Projects({
                     {value.TAGS?.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary/10 text-primary/60 font-medium"
+                        className="chip chip-accent"
                       >
                         {TAG_LABELS[tag]}
                       </span>
                     ))}
                   </div>
 
-                  <p className="text-[#fff3cc] text-lg leading-snug">{key}</p>
+                  <p className="font-mono font-medium text-[#fff3cc] text-base leading-snug">{key}</p>
 
                   {value.VENUE && (
                     <p className="text-xs text-muted-foreground/70 mt-0.5">{value.VENUE}</p>
@@ -126,7 +128,7 @@ export function Projects({
                     {value.HIGHLIGHTS.map((h, i) => (
                       <li
                         key={i}
-                        className="text-xs font-medium text-primary/80 bg-primary/5 border border-primary/10 px-2 py-1 rounded whitespace-nowrap"
+                        className="whitespace-nowrap chip"
                       >
                         {h}
                       </li>
@@ -141,7 +143,7 @@ export function Projects({
                 {value.TECH_STACK.map((tech, index) => (
                   <li
                     key={index}
-                    className="bg-muted px-2 py-1 rounded text-xs"
+                    className="chip"
                   >
                     {tech}
                   </li>
@@ -158,7 +160,7 @@ export function Projects({
         <a
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex justify-center items-center bg-background hover:bg-accent disabled:opacity-50 shadow-sm px-4 py-2 border border-input rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring h-9 font-medium text-muted-foreground text-sm whitespace-nowrap transition-colors hover:text-accent-foreground cursor-target disabled:pointer-events-none"
+          className="inline-flex justify-center items-center bg-background hover:bg-accent disabled:opacity-50 shadow-sm px-4 py-2 border border-input focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring h-9 font-mono text-muted-foreground text-xs whitespace-nowrap transition-colors hover:text-accent-foreground cursor-target disabled:pointer-events-none"
           href={all}
         >
           View projects on GitHub

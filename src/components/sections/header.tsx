@@ -9,10 +9,11 @@ const LETTER_STAGGER = 0.03;
 const TEXT_START = 0.15;
 
 // Drops text in one letter at a time with CSS, so it plays as soon as the page paints.
-// Each letter is drawn as ASCII art; characters the font lacks show as themselves.
+// Each letter is drawn as ASCII art; characters the font lacks show as themselves. The art is
+// spaced for the system monospace font, whose box-drawing characters join up without gaps.
 function LetterDrop({ text, font, start }: { text: string; font: AsciiFont; start: number }) {
   return (
-    <span aria-label={text} className="inline-flex items-start font-mono leading-none whitespace-pre">
+    <span aria-label={text} className="inline-flex items-start [font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace] leading-none whitespace-pre">
       {Array.from(text).map((ch, i) => (
         <span
           key={i}
@@ -70,16 +71,16 @@ export function Header({ data }: { data: Record<string, string> }) {
     // off screen never make the page scroll horizontally.
     <section className="left-1/2 relative flex justify-center pt-[23px] w-screen overflow-x-clip -translate-x-1/2">
       {/* Grows past the page column on wide windows, but stays within the window's width and height. */}
-      <div className="relative w-[min(1080px,calc(100vw-32px),calc((100svh-130px)*1.36))] shrink-0">
+      <div className="relative w-[min(1240px,calc(100vw-32px),max(640px,calc((100svh-150px)*1.5)))] max-sm:w-[calc(100vw-32px)] shrink-0">
         <CollageBoard />
 
-        {/* Greeting and links sit centered on the board from the very first paint; a soft dark
-            glow keeps them readable while the board behind is still bright. */}
+        {/* Greeting and links sit in the clearing at the middle of the wall from the very first
+            paint; a soft dark glow keeps them readable where a print laps into it. */}
         <div className="absolute inset-0 flex flex-col justify-center items-center gap-2 px-4 text-center pointer-events-none [text-shadow:0_2px_18px_rgba(0,0,0,0.55)]">
           <div
             aria-hidden="true"
-            className="-z-10 absolute w-[min(560px,90%)] h-[min(300px,60%)]"
-            style={{ background: "radial-gradient(ellipse at center, rgba(8,8,14,0.6) 0%, rgba(8,8,14,0.35) 45%, transparent 72%)" }}
+            className="-z-10 absolute w-[min(560px,90%)] h-[min(300px,36%)]"
+            style={{ background: "radial-gradient(ellipse at center, rgba(8,8,14,0.85) 0%, rgba(8,8,14,0.6) 45%, transparent 72%)" }}
           />
           <p className="text-[min(10px,1.75vw)] text-primary/85">
             <LetterDrop text={GREETING} font={SMALL} start={TEXT_START} />
@@ -89,7 +90,7 @@ export function Header({ data }: { data: Record<string, string> }) {
             <LetterDrop text={NAME} font={BLOCK} start={nameStart} />
           </h1>
           {data.HEADLINE && (
-            <h2 className="mt-1 font-normal text-primary/90 text-base">{data.HEADLINE}</h2>
+            <h2 className="mt-2 font-mono font-normal text-[#c9b8ff] text-xs sm:text-sm">{data.HEADLINE}</h2>
           )}
 
           <div className="flex items-center gap-2 pt-2 text-sm pointer-events-auto">
